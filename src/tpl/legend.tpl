@@ -139,6 +139,11 @@
 		<td>This indicates how further along is the spread of the disease</td>
 	</tr>
 	<tr class="coronaRow">
+		<td>EcasesRate</td>
+		<td>Effective casesRate</td>
+		<td>If 90% asymptomatic were never tested</td>
+	</tr>
+	<tr class="coronaRow">
 		<td>activeRate</td>
 		<td>percentage of active/population</td>
 		<td>This indicates the load on the health care system</td>
@@ -146,6 +151,11 @@
 	<tr class="coronaRow">
 		<td>Pdeath%</td>
 		<td>percentage of deaths/population</td>
+		<td></td>
+	</tr>
+	<tr class="coronaRow">
+		<td>EPdeath%</td>
+		<td>Effective percentage of deaths/population</td>
 		<td></td>
 	</tr>
 	<tr class="coronaRow">

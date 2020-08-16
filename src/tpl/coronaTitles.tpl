@@ -261,6 +261,9 @@
 		{/if}
 	</td>
 	<td>
+		EcasesRate
+	</td>
+	<td>
 		activeRate
 		{if $links}
 			{if $by == 'activeRate'}
@@ -283,6 +286,9 @@
 		{elseif $by == 'populationDeathRate'}
 			<img src="/images/circles/fade/green.png">
 		{/if}
+	</td>
+	<td>
+		<a title="Effective Death Rate from Population (%)">EPdeath%</a>
 	</td>
 	<td>
 		testRate
