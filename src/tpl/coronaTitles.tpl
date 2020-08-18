@@ -261,7 +261,7 @@
 		{/if}
 	</td>
 	<td>
-		EcasesRate
+		<a title="Heard Immunity Factor if 90% asymptomatic were never tested">EcasesRate%</a>
 	</td>
 	<td>
 		activeRate
