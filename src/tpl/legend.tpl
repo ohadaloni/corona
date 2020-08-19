@@ -134,8 +134,8 @@
 		<td>(world population is rounded up for clarity)</td>
 	</tr>
 	<tr class="coronaRow">
-		<td>casesRate</td>
-		<td>percentage of cases/population</td>
+		<td>CR</td>
+		<td>Cases Rate - percentage of cases/population</td>
 		<td>This indicates how further along is the spread of the disease</td>
 	</tr>
 	<tr class="coronaRow">
