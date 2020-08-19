@@ -249,7 +249,7 @@
 		{/if}
 	</td>
 	<td>
-		casesRate
+		<a title="Cases Rate">CR</a>
 		{if $links}
 			{if $by == 'casesRate'}
 				<img src="/images/circles/green.png">
