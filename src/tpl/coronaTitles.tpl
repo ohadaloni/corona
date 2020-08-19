@@ -261,10 +261,10 @@
 		{/if}
 	</td>
 	<td>
-		<a title="Heard Immunity Factor if 90% asymptomatic were never tested">EcasesRate%</a>
+		<a title="Effective Cases Rate = Heard Immunity Factor if 90% asymptomatic were never tested">ECR</a>
 	</td>
 	<td>
-		activeRate
+		<a title="Active Cases Rate">AR</a>
 		{if $links}
 			{if $by == 'activeRate'}
 				<img src="/images/circles/green.png">
