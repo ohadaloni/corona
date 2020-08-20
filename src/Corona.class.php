@@ -178,7 +178,7 @@ class Corona extends Mcontroller {
 				( $row['active'] / $population ) * 100 ;
 			$row['populationDeathRate'] =
 				( $row['deaths'] / $population ) * 100 ;
-			$row['EpopulationDeathRate'] = $row['populationDeathRate'] * 10 ;
+			$row['EpopulationDeathRate'] = $row['populationDeathRate'] / 10 ;
 			$row['testRate'] = 
 				( $row['tests'] / $population ) * 100 ;
 		} else {
