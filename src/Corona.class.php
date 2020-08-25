@@ -22,7 +22,6 @@ class Corona extends Mcontroller {
 		ini_set("memory_limit", "30M");
 
 		$this->coronaUtils->prior($this->controller, $this->action);
-		$this->cacheQps();
 		$this->Mview->assign(array(
 			'controller' => $this->controller,
 			'action' => $this->action,
@@ -36,9 +35,11 @@ class Corona extends Mcontroller {
 		$time = $endTime - $this->startTime ;
 		$millis = $time * 1000;
 		$millis = round($millis, 3);
-		$qpsString = $this->qpsString();
 
-		$this->Mview->msg("Running Time: $millis milliseconds$qpsString.");
+		$this->Mview->msg("Running Time: $millis milliseconds.");
+
+
+		$this->Mview->runningTime($this->startTime);
 		$a = '<br /><br /><a name="viewSource"><h4>PHP Source Code</h4></a><br />';
 		$this->Mview->pushOutput($a);
 		$src = highlight_file(__FILE__, true);
@@ -326,23 +327,6 @@ class Corona extends Mcontroller {
 				'ttl' => 25*3600,
 			),
 		));
-	}
-	/*------------------------------*/
-	private function cacheQps() {
-		foreach ( $this->qpsKeys() as $key )
-			$this->Mmemcache->increment($key['key'], $key['ttl']);
-	}
-	/*------------------------------*/
-	private function qpsString() {
-		$min = 3;
-		foreach ( $this->qpsKeys() as $key ) {
-			$cnt = $this->Mmemcache->rawGet($key['key']);
-			if ( $cnt > $min ) {
-				$title = $key['title'];
-				return(", $title: $cnt");
-			}
-		}
-		return("");
 	}
 	/*------------------------------------------------------------*/
 	private function worldPopulation() {
