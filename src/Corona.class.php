@@ -31,14 +31,6 @@ class Corona extends Mcontroller {
 	}
 	/*------------------------------*/
 	protected function after() {
-		$endTime = microtime(true);
-		$time = $endTime - $this->startTime ;
-		$millis = $time * 1000;
-		$millis = round($millis, 3);
-
-		$this->Mview->msg("Running Time: $millis milliseconds.");
-
-
 		$this->Mview->runningTime($this->startTime);
 		$a = '<br /><br /><a name="viewSource"><h4>PHP Source Code</h4></a><br />';
 		$this->Mview->pushOutput($a);
