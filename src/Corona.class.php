@@ -22,10 +22,6 @@ class Corona extends Mcontroller {
 		ini_set("memory_limit", "30M");
 
 		$this->coronaUtils->prior($this->controller, $this->action);
-		$this->Mview->assign(array(
-			'controller' => $this->controller,
-			'action' => $this->action,
-		));
 		$this->Mview->showTpl("head.tpl");
 		$this->Mview->showTpl("header.tpl");
 	}
