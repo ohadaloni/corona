@@ -25,6 +25,10 @@ function coronaPaintRows(context)
 	$(".today:nth-child(even)", context).addClass("coronaZebra4");
 	$(".yesterday:nth-child(odd)", context).addClass("coronaZebra5");
 	$(".yesterday:nth-child(even)", context).addClass("coronaZebra6");
+	$(".coronaRow", context).click(function(){
+		$(".coronaRow").not(this).removeClass("keepHilited");
+		$(this).addClass("keepHilited");
+	});
 
 }
 /*------------------------------------------------------------*/
