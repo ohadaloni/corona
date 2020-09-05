@@ -204,6 +204,14 @@ class Corona extends Mcontroller {
 		return($this->cmp($a['growth'], $b['growth']));
 	}
 	/*------------------------------*/
+	private function byDoubles($b, $a) {
+		return($this->cmp($a['doubles'], $b['doubles']));
+	}
+	/*------------------------------*/
+	private function byDeathsDoubles($b, $a) {
+		return($this->cmp($a['deathsDoubles'], $b['deathsDoubles']));
+	}
+	/*------------------------------*/
 	private function byToday($b, $a) {
 		return($this->cmp($a['today'], $b['today']));
 	}
@@ -248,6 +256,10 @@ class Corona extends Mcontroller {
 		return($this->cmp($a['casesRate'], $b['casesRate']));
 	}
 	/*------------------------------*/
+	private function byEcasesRate($b, $a) {
+		return($this->cmp($a['EcasesRate'], $b['EcasesRate']));
+	}
+	/*------------------------------*/
 	private function byActiveRate($b, $a) {
 		return($this->cmp($a['activeRate'], $b['activeRate']));
 	}
@@ -278,6 +290,10 @@ class Corona extends Mcontroller {
 	/*------------------------------*/
 	private function byPopulationDeathRate($b, $a) {
 		return($this->cmp($a['populationDeathRate'], $b['populationDeathRate']));
+	}
+	/*------------------------------*/
+	private function byEpopulationDeathRate($b, $a) {
+		return($this->cmp($a['EpopulationDeathRate'], $b['EpopulationDeathRate']));
 	}
 	/*------------------------------------------------------------*/
 	private function population($country) {
