@@ -56,6 +56,15 @@
 	</td>
 	<td>
 		<a title="Doubling Time (in days)">dt</a>
+		{if $links}
+			{if $by == 'doubles'}
+				<img src="/images/circles/green.png">
+			{else}
+				<a href="/?by=doubles"><img src="/images/arrowDown.png"></a>
+			{/if}
+		{elseif $by == 'doubles'}
+			<img src="/images/circles/fade/green.png">
+		{/if}
 	</td>
 	<td>
 		today
@@ -108,6 +117,15 @@
 	</td>
 	<td>
 		<a title="Doubling Time (in days)">ddt</a>
+		{if $links}
+			{if $by == 'deathsDoubles'}
+				<img src="/images/circles/green.png">
+			{else}
+				<a href="/?by=deathsDoubles"><img src="/images/arrowDown.png"></a>
+			{/if}
+		{elseif $by == 'deathsDoubles'}
+			<img src="/images/circles/fade/green.png">
+		{/if}
 	</td>
 	<td>
 		today
@@ -262,6 +280,15 @@
 	</td>
 	<td>
 		<a title="Effective Cases Rate = Heard Immunity Factor if 90% asymptomatic were never tested">ECR</a>
+		{if $links}
+			{if $by == 'EcasesRate'}
+				<img src="/images/circles/green.png">
+			{else}
+				<a href="/?by=EcasesRate"><img src="/images/arrowDown.png"></a>
+			{/if}
+		{elseif $by == 'EcasesRate'}
+			<img src="/images/circles/fade/green.png">
+		{/if}
 	</td>
 	<td>
 		<a title="Active Cases Rate">AR</a>
@@ -289,6 +316,15 @@
 	</td>
 	<td>
 		<a title="Effective Death Rate from Population (%)">EPdeath%</a>
+		{if $links}
+			{if $by == 'EpopulationDeathRate'}
+				<img src="/images/circles/green.png">
+			{else}
+				<a href="/?by=EpopulationDeathRate"><img src="/images/arrowDown.png"></a>
+			{/if}
+		{elseif $by == 'EpopulationDeathRate'}
+			<img src="/images/circles/fade/green.png">
+		{/if}
 	</td>
 	<td>
 		testRate
