@@ -35,7 +35,12 @@
 			<td align="right">{$row.doubles|numberFormat:0}</td>
 			<td align="right">{$row.today|numberFormat:0}</td>
 			<td style="background-color: #ddd;" width="20px"> </td>
-			<td align="right">{$row.deaths|numberFormat:0}</td>
+			<td align="right">
+				<a
+					href="/corona/historyGraph?country={$row.country}&metric=deaths"
+					target="_blank"
+				>{$row.deaths|numberFormat:0}</a>
+			</td>
 			<td align="right">{$row.deathsYesterday|numberFormat:0}</td>
 			<td align="right">{$row.deathsGrowth|numberFormat:2:'%'}</td>
 			<td align="right">{$row.deathsDoubles|numberFormat:0}</td>
