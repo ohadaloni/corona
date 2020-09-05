@@ -91,6 +91,29 @@ class Corona extends Mcontroller {
 		$this->index();
 	}
 	/*------------------------------------------------------------*/
+	// Sat Sep  5 09:40:46 IDT 2020
+	// for startyers - just graph the collected data
+	public function historyGraph() {
+		$country = $_REQUEST['country'];
+		if ( ! $country )
+			return;
+		$metric = $_REQUEST['metric'];
+
+		$country = $this->Mmodel->str($country);
+		$sql = "select date, $metric from covid19 where country = '$country' order by date";
+		$rows = $this->Mmodel->getRows($sql);
+		$xAxis = array();
+		$lines = array();
+		foreach ( $rows as $row ) {
+			$xAxis[] = $row['date'];
+			$lines[] = array(
+				$metric => $row[$metric],
+			);
+		}
+		$ml = new MlineGraphs;
+		$ml->lineGraphs($lines, "$country $metric", "$country$metric", $xAxis);
+	}
+	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
 	private function getRows() {
 		$date = date("Y-m-d");
