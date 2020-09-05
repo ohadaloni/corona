@@ -24,7 +24,12 @@
 				{/if}
 			</td>
 			<td style="background-color: #ddd;" width="20px"> </td>
-			<td align="right">{$row.cases|numberFormat:0}</td>
+			<td align="right">
+				<a
+					href="/corona/historyGraph?country={$row.country}&metric=cases"
+					target="_blank"
+				>{$row.cases|numberFormat:0}</a>
+			</td>
 			<td align="right">{$row.yesterday|numberFormat:0}</td>
 			<td align="right">{$row.growth|numberFormat:2:'%'}</td>
 			<td align="right">{$row.doubles|numberFormat:0}</td>
