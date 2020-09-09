@@ -30,10 +30,20 @@
 					target="_blank"
 				>{$row.cases|numberFormat:0}</a>
 			</td>
-			<td align="right">{$row.yesterday|numberFormat:0}</td>
+			<td align="right">
+				<a
+					href="/corona/historyGraph?country={$row.country}&metric=yesterday"
+					target="_blank"
+				>{$row.yesterday|numberFormat:0}</a>
+			</td>
 			<td align="right">{$row.growth|numberFormat:2:'%'}</td>
 			<td align="right">{$row.doubles|numberFormat:0}</td>
-			<td align="right">{$row.today|numberFormat:0}</td>
+			<td align="right">
+				<a
+					href="/corona/historyGraph?country={$row.country}&metric=today"
+					target="_blank"
+				>{$row.today|numberFormat:0}</a>
+			</td>
 			<td style="background-color: #ddd;" width="20px"> </td>
 			<td align="right">
 				<a
@@ -41,10 +51,20 @@
 					target="_blank"
 				>{$row.deaths|numberFormat:0}</a>
 			</td>
-			<td align="right">{$row.deathsYesterday|numberFormat:0}</td>
+			<td align="right">
+				<a
+					href="/corona/historyGraph?country={$row.country}&metric=deathsYesterday"
+					target="_blank"
+				>{$row.deathsYesterday|numberFormat:0}</a>
+			</td>
 			<td align="right">{$row.deathsGrowth|numberFormat:2:'%'}</td>
 			<td align="right">{$row.deathsDoubles|numberFormat:0}</td>
-			<td align="right">{$row.deathsToday|numberFormat:0}</td>
+			<td align="right">
+				<a
+					href="/corona/historyGraph?country={$row.country}&metric=deathsToday"
+					target="_blank"
+				>{$row.deathsToday|numberFormat:0}</a>
+			</td>
 			<td style="background-color: #ddd;" width="20px"> </td>
 			<td align="right">{$row.recovered|numberFormat:0}</td>
 			<td align="right">{$row.closed|numberFormat:0}</td>
