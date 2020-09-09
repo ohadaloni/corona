@@ -91,17 +91,7 @@ class Corona extends Mcontroller {
 		$this->index();
 	}
 	/*------------------------------------------------------------*/
-	// Sat Sep  5 09:40:46 IDT 2020
-	// for startyers - just graph the collected data
-	public function historyGraph() {
-		$country = $_REQUEST['country'];
-		if ( ! $country )
-			return;
-		$metric = $_REQUEST['metric'];
-
-		$country = $this->Mmodel->str($country);
-		$sql = "select date, $metric from covid19 where country = '$country' order by date";
-		$rows = $this->Mmodel->getRows($sql);
+	private function graph($rows, $metric, $title) {
 		$xAxis = array();
 		$lines = array();
 		foreach ( $rows as $row ) {
@@ -111,7 +101,45 @@ class Corona extends Mcontroller {
 			);
 		}
 		$ml = new MlineGraphs;
-		$ml->lineGraphs($lines, "$country $metric", "$country$metric", $xAxis);
+		$ml->lineGraphs($lines, $title, "crHistoryuGraph", $xAxis);
+	}
+	/*------------------------------------------------------------*/
+	public function historyGraph() {
+		$country = $_REQUEST['country'];
+		$country = $this->Mmodel->str($country);
+		if ( ! $country )
+			return;
+		$metric = $_REQUEST['metric'];
+		$cumulative = array(
+			'cases',
+			'deaths'
+		);
+		$dailies = array(
+			'today',
+			'yesterday',
+			'deathsToday',
+			'deathsYesterday',
+		);
+		if ( in_array($metric, $cumulative) ) {
+			$sql = "select date, $metric from covid19 where country = '$country' order by date";
+			$rows = $this->Mmodel->getRows($sql);
+			$this->graph($rows, $metric, "cumulative $metric in $country");
+		} else if ( in_array($metric, $dailies) ) {
+			$baseMetric = stristr($metric, 'deaths') ? 'deaths' : 'cases';
+			$sql = "select date, $baseMetric from covid19 where country = '$country' order by date";
+			$baseMetricRows = $this->Mmodel->getRows($sql);
+			$rows = array();
+			foreach ( $baseMetricRows as $key => $row ) {
+				if ( $key > 0 )
+					$rows[] = array(
+						'date' => $row['date'],
+						$baseMetric => $row[$baseMetric] - $baseMetricRows[$key-1][$baseMetric],
+					);
+			}
+			$this->graph($rows, $baseMetric, "daily $baseMetric in $country");
+		} else {
+			$this->Mview->msg("No graph yet for $metric");
+		}
 	}
 	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
