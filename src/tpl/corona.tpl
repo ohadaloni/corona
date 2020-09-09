@@ -27,12 +27,14 @@
 			<td align="right">
 				<a
 					href="/corona/historyGraph?country={$row.country}&metric=cases"
+					title="history graph"
 					target="_blank"
 				>{$row.cases|numberFormat:0}</a>
 			</td>
 			<td align="right">
 				<a
 					href="/corona/historyGraph?country={$row.country}&metric=yesterday"
+					title="history graph"
 					target="_blank"
 				>{$row.yesterday|numberFormat:0}</a>
 			</td>
@@ -41,6 +43,7 @@
 			<td align="right">
 				<a
 					href="/corona/historyGraph?country={$row.country}&metric=today"
+					title="history graph"
 					target="_blank"
 				>{$row.today|numberFormat:0}</a>
 			</td>
@@ -48,12 +51,14 @@
 			<td align="right">
 				<a
 					href="/corona/historyGraph?country={$row.country}&metric=deaths"
+					title="history graph"
 					target="_blank"
 				>{$row.deaths|numberFormat:0}</a>
 			</td>
 			<td align="right">
 				<a
 					href="/corona/historyGraph?country={$row.country}&metric=deathsYesterday"
+					title="history graph"
 					target="_blank"
 				>{$row.deathsYesterday|numberFormat:0}</a>
 			</td>
@@ -62,6 +67,7 @@
 			<td align="right">
 				<a
 					href="/corona/historyGraph?country={$row.country}&metric=deathsToday"
+					title="history graph"
 					target="_blank"
 				>{$row.deathsToday|numberFormat:0}</a>
 			</td>
