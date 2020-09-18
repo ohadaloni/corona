@@ -143,12 +143,6 @@ class Corona extends Mcontroller {
 			$sql = "select date, $metric from covid19 where $conds $orderBy";
 			$rows = $this->Mmodel->getRows($sql);
 			$this->graph($rows, $metric, $title);
-			$this->Mview->showTpl("sinceLinks.tpl", array(
-				'country' => $country,
-				'metric' => $metric,
-				'since' => $since,
-				'sinces' => $sinces,
-			));
 		} else if ( in_array($metric, $dailies) ) {
 			$baseMetric = stristr($metric, 'deaths') ? 'deaths' : 'cases';
 			$title = "daily $baseMetric in $country$sinceTitle";
@@ -163,15 +157,16 @@ class Corona extends Mcontroller {
 					);
 			}
 			$this->graph($rows, $baseMetric, $title);
-			$this->Mview->showTpl("sinceLinks.tpl", array(
-				'country' => $country,
-				'metric' => $baseMetric,
-				'since' => $since,
-				'sinces' => $sinces,
-			));
 		} else {
 			$this->Mview->msg("No graph yet for $metric");
+			return;
 		}
+		$this->Mview->showTpl("sinceLinks.tpl", array(
+			'country' => $country,
+			'metric' => $metric,
+			'since' => $since,
+			'sinces' => $sinces,
+		));
 	}
 	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
