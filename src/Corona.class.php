@@ -105,11 +105,29 @@ class Corona extends Mcontroller {
 	}
 	/*------------------------------------------------------------*/
 	public function historyGraph() {
-		$country = $_REQUEST['country'];
-		$country = $this->Mmodel->str($country);
-		if ( ! $country )
+		$country = @$_REQUEST['country'];
+		$metric = @$_REQUEST['metric'];
+		$since = @$_REQUEST['since'];
+
+		if ( ! $country || ! $metric )
 			return;
-		$metric = $_REQUEST['metric'];
+
+		$sinces = $this->sinces();
+		$country = $this->Mmodel->str($country);
+		$metric = $this->Mmodel->str($metric);
+
+		if ( $since && $since != 'allTime' ) {
+			$since = $this->Mmodel->str($since);
+			$dateCond = "date >= '$since'";
+			$sinceTitle = " since $since";
+		} else {
+			$dateCond = true;
+			$sinceTitle = "";
+		}
+
+		$conds = "country = '$country' and $dateCond";
+		$orderBy = "order by date";
+
 		$cumulative = array(
 			'cases',
 			'deaths'
@@ -121,12 +139,20 @@ class Corona extends Mcontroller {
 			'deathsYesterday',
 		);
 		if ( in_array($metric, $cumulative) ) {
-			$sql = "select date, $metric from covid19 where country = '$country' order by date";
+			$title = "cumulative $metric in $country$sinceTitle";
+			$sql = "select date, $metric from covid19 where $conds $orderBy";
 			$rows = $this->Mmodel->getRows($sql);
-			$this->graph($rows, $metric, "cumulative $metric in $country");
+			$this->graph($rows, $metric, $title);
+			$this->Mview->showTpl("sinceLinks.tpl", array(
+				'country' => $country,
+				'metric' => $metric,
+				'since' => $since,
+				'sinces' => $sinces,
+			));
 		} else if ( in_array($metric, $dailies) ) {
 			$baseMetric = stristr($metric, 'deaths') ? 'deaths' : 'cases';
-			$sql = "select date, $baseMetric from covid19 where country = '$country' order by date";
+			$title = "daily $baseMetric in $country$sinceTitle";
+			$sql = "select date, $baseMetric from covid19 where $conds $orderBy";
 			$baseMetricRows = $this->Mmodel->getRows($sql);
 			$rows = array();
 			foreach ( $baseMetricRows as $key => $row ) {
@@ -136,7 +162,13 @@ class Corona extends Mcontroller {
 						$baseMetric => $row[$baseMetric] - $baseMetricRows[$key-1][$baseMetric],
 					);
 			}
-			$this->graph($rows, $baseMetric, "daily $baseMetric in $country");
+			$this->graph($rows, $baseMetric, $title);
+			$this->Mview->showTpl("sinceLinks.tpl", array(
+				'country' => $country,
+				'metric' => $baseMetric,
+				'since' => $since,
+				'sinces' => $sinces,
+			));
 		} else {
 			$this->Mview->msg("No graph yet for $metric");
 		}
@@ -412,6 +444,19 @@ class Corona extends Mcontroller {
 			return(0);
 		}
 		return($metric);
+	}
+	/*------------------------------------------------------------*/
+	private function sinces() {
+		$now = time();
+		$sinces = array(
+			date("Y-m-01"),
+			date("Y-m-01", $now - 30*24*3600),
+			date("Y-m-01", $now - 61*24*3600),
+			date("Y-m-01", $now - 91*24*3600),
+			date("Y-m-01", $now - 122*24*3600),
+			'allTime',
+		);
+		return($sinces);
 	}
 	/*------------------------------------------------------------*/
 	private function doubles($growth) {
