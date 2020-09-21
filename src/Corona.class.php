@@ -112,22 +112,6 @@ class Corona extends Mcontroller {
 		if ( ! $country || ! $metric )
 			return;
 
-		$sinces = $this->sinces();
-		$country = $this->Mmodel->str($country);
-		$metric = $this->Mmodel->str($metric);
-
-		if ( $since && $since != 'allTime' ) {
-			$since = $this->Mmodel->str($since);
-			$dateCond = "date >= '$since'";
-			$sinceTitle = " since $since";
-		} else {
-			$dateCond = true;
-			$sinceTitle = "";
-		}
-
-		$conds = "country = '$country' and $dateCond";
-		$orderBy = "order by date";
-
 		$cumulative = array(
 			'cases',
 			'deaths'
@@ -138,6 +122,29 @@ class Corona extends Mcontroller {
 			'deathsToday',
 			'deathsYesterday',
 		);
+
+		if ( ! $since )
+			$since = date("Y-m-01", time() - 30*24*3600);
+		$sinces = $this->sinces();
+		$country = $this->Mmodel->str($country);
+		$metric = $this->Mmodel->str($metric);
+
+		if ( $since == 'allTime' ) {
+			$dateCond = true;
+			$sinceTitle = "";
+		} else {
+			if ( in_array($metric, $dailies) )
+				$sinceDate = date("Y-m-d", strtotime($since) - 24*3600);
+			else
+				$sinceDate = $since;
+			$sinceDate = $this->Mmodel->str($sinceDate);
+			$dateCond = "date >= '$sinceDate'";
+			$sinceTitle = " since $since";
+		}
+
+		$conds = "country = '$country' and $dateCond";
+		$orderBy = "order by date";
+
 		if ( in_array($metric, $cumulative) ) {
 			$title = "cumulative $metric in $country$sinceTitle";
 			$sql = "select date, $metric from covid19 where $conds $orderBy";
