@@ -181,8 +181,8 @@ class Corona extends Mcontroller {
 		$date = date("Y-m-d");
 		$mkey = "getRows-$date";
 		$rows = $this->Mmemcache->get($mkey);
-		if ( $rows )
-			return($rows);
+		/*	if ( $rows )	*/
+			/*	return($rows);	*/
 		$sql = "select * from covid19 where date = '$date'";
 		$rows = $this->Mmodel->getRows($sql, $this->ttl);
 		/*	$rows = $this->Mmodel->getRows($sql);	*/
@@ -264,6 +264,32 @@ class Corona extends Mcontroller {
 			$row['activeRate'] = 0;
 			$row['testRate'] = 0;
 		}
+		$row['flag'] = $this->flag($country);
+	}
+	/*------------------------------------------------------------*/
+	private function flag($country) {
+		static $countries;
+		if ( ! $countries ) {
+			$sql = "select * from countries";
+			$countries = $this->Mmodel->getRows($sql, 24*3600);
+			$countries = Mutils::reIndexBy($countries, "name");
+		}
+		if ( $country == 'World' )
+			return("world.png");
+		
+		$row = @$countries[$country];
+		if ( ! $row ) {
+			error_log("flag: $country: no match");
+			return(null);
+		}
+		$code = strtolower($row['code']);
+		$flag = "$code.png";
+		$imgPath = "../images/flags/$flag";
+		if ( ! file_exists($imgPath) ) {
+			error_log("flag: $country: no file $flag");
+			return(null);
+		}
+		return($flag);
 	}
 	/*------------------------------------------------------------*/
 	// sort functions = /showBy?by=funcName

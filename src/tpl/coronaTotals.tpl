@@ -1,5 +1,6 @@
 <tr style="background-color: #ddd">
 	<td>*</td>
+	<td><img src="/images/flags/world.png" /></td>
 	<td>World</td>
 	<td style="background-color: #ddd;" width="20px"></td>
 	<td align="right">{$totals.cases|numberFormat:0}</td>

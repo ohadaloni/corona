@@ -3,6 +3,8 @@
 		<a href="#viewSource" title="View PHP Source Code">#</a>
 	</td>
 	<td>
+	</td>
+	<td>
 		{if $links}
 			<a target="legend" href="/corona/legend" title="Explanation of the column titles/metrics" style="color: red">Legend</a>
 			{if $by == 'country'}
