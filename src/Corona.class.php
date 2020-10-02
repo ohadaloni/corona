@@ -183,7 +183,16 @@ class Corona extends Mcontroller {
 		$rows = $this->Mmemcache->get($mkey);
 		/*	if ( $rows )	*/
 			/*	return($rows);	*/
-		$sql = "select * from covid19 where date = '$date'";
+		$todayCond = "date = '$date'";
+		$obsoleteCountries = array(
+			/*	"Diamond Princess and the likes",	*/
+			"Diamond Princess",
+		);
+		$obsoleteCountryList = "'".implode("', '", $obsoleteCountries)."'";
+		$obsoleteCond = "country not in ( $obsoleteCountryList )";
+		$conds = "$todayCond and $obsoleteCond";
+
+		$sql = "select * from covid19 where $conds";
 		$rows = $this->Mmodel->getRows($sql, $this->ttl);
 		/*	$rows = $this->Mmodel->getRows($sql);	*/
 		if ( ! $rows ) {
