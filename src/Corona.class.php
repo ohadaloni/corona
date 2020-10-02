@@ -274,8 +274,14 @@ class Corona extends Mcontroller {
 			$countries = $this->Mmodel->getRows($sql, 24*3600);
 			$countries = Mutils::reIndexBy($countries, "name");
 		}
-		if ( $country == 'World' )
-			return("world.png");
+		$exceptions = array(
+			'World' => "world.png",
+			'USA' => "us.png",
+			'UK' => "gb.png",
+			'Netherlands' => "nl.png",
+		);
+		if ( @$exceptions[$country] )
+			return($exceptions[$country]);
 		
 		$row = @$countries[$country];
 		if ( ! $row ) {
