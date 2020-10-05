@@ -187,6 +187,7 @@ class Corona extends Mcontroller {
 		$obsoleteCountries = array(
 			/*	"Diamond Princess and the likes",	*/
 			"Diamond Princess",
+			"MS Zaandam",
 		);
 		$obsoleteCountryList = "'".implode("', '", $obsoleteCountries)."'";
 		$obsoleteCond = "country not in ( $obsoleteCountryList )";
