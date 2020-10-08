@@ -75,8 +75,20 @@
 			<td style="background-color: #ddd;" width="20px"> </td>
 			<td align="right">{$row.recovered|numberFormat:0}</td>
 			<td align="right">{$row.closed|numberFormat:0}</td>
-			<td align="right">{$row.active|numberFormat:0}</td>
-			<td align="right">{$row.activeDelta|numberFormat:0}</td>	
+			<td align="right">
+				<a
+					href="/corona/historyGraph?country={$row.country}&metric=active"
+					title="history graph"
+					target="_blank"
+				>{$row.active|numberFormat:0}</a>
+			</td>
+			<td align="right">
+				<a
+					href="/corona/historyGraph?country={$row.country}&metric=activeDelta"
+					title="history graph"
+					target="_blank"
+				>{$row.activeDelta|numberFormat:0}</a>
+			</td>	
 			<td align="right">{$row.tests|numberFormat:0}</td>
 			<!--	<td align="right">{$row.testsYesterday|numberFormat:0}</td>	-->
 			<td style="background-color: #ddd;" width="20px"> </td>
