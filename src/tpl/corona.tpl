@@ -76,8 +76,7 @@
 			<td align="right">{$row.recovered|numberFormat:0}</td>
 			<td align="right">{$row.closed|numberFormat:0}</td>
 			<td align="right">{$row.active|numberFormat:0}</td>
-			<!--	<td align="right">{$row.yActive|numberFormat:0}</td>	-->
-			<!--	<td align="right">{$row.activeDelta|numberFormat:0}</td>	-->
+			<td align="right">{$row.activeDelta|numberFormat:0}</td>	
 			<td align="right">{$row.tests|numberFormat:0}</td>
 			<!--	<td align="right">{$row.testsYesterday|numberFormat:0}</td>	-->
 			<td style="background-color: #ddd;" width="20px"> </td>
