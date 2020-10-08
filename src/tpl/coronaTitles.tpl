@@ -178,19 +178,6 @@
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>
-	<!--
-	<td>
-		yesterday
-		{if $links}
-			{if $by == 'yActive'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=yActive"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'yActive'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
 	<td>
 		change
 		{if $links}
@@ -203,7 +190,6 @@
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>
-	-->
 	<td>
 		tests
 		{if $links}
