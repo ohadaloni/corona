@@ -122,6 +122,10 @@ class Corona extends Mcontroller {
 			'deathsToday',
 			'deathsYesterday',
 		);
+		$calced = array(
+			'active',
+			'activeDelta',
+		);
 
 		if ( ! $since )
 			$since = date("Y-m-01", time() - 30*24*3600);
@@ -130,7 +134,7 @@ class Corona extends Mcontroller {
 		$metric = $this->Mmodel->str($metric);
 
 		if ( $since == 'allTime' ) {
-			$dateCond = true;
+			$sinceCond = true;
 			$sinceTitle = "";
 		} else {
 			if ( in_array($metric, $dailies) )
@@ -138,11 +142,11 @@ class Corona extends Mcontroller {
 			else
 				$sinceDate = $since;
 			$sinceDate = $this->Mmodel->str($sinceDate);
-			$dateCond = "date >= '$sinceDate'";
+			$sinceCond = "date >= '$sinceDate'";
 			$sinceTitle = " since $since";
 		}
 
-		$conds = "country = '$country' and $dateCond";
+		$conds = "country = '$country' and $sinceCond";
 		$orderBy = "order by date";
 
 		if ( in_array($metric, $cumulative) ) {
@@ -164,8 +168,14 @@ class Corona extends Mcontroller {
 					);
 			}
 			$this->graph($rows, $baseMetric, $title);
+		} else if ( in_array($metric, $calced) ) {
+			$sql = "select * from covid19 where $conds $orderBy";
+			$dataRows = $this->Mmodel->getRows($sql);
+			$rows = $this->calcRows($dataRows, $metric);
+			$title = "$metric in $country$sinceTitle";
+			$this->graph($rows, $metric, $title);
 		} else {
-			$this->Mview->msg("No graph yet for $metric");
+			$this->Mview->error("historyGraph: $metric: Eh?");
 			return;
 		}
 		$this->Mview->showTpl("sinceLinks.tpl", array(
@@ -174,6 +184,26 @@ class Corona extends Mcontroller {
 			'since' => $since,
 			'sinces' => $sinces,
 		));
+	}
+	/*------------------------------------------------------------*/
+	private function calcRows($dataRows, $metric) {
+		if ( $metric != 'active' && $metric != 'activeDelta' ) {
+			$this->Mview->error("calcRows: $metric: Eh?");
+			return(null);
+		}
+		foreach ( $dataRows as $key => $dataRow ) {
+			$active = $dataRow['cases'] - $dataRow['death'] - $dataRow['recovered'];
+			 $dataRows[$key]['active'] = $active;
+			if ( $key > 0 && $metric == 'activeDelta' )
+				$dataRows[$key]['activeDelta'] = $dataRows[$key]['active'] - $dataRows[$key-1]['active'];
+		}
+		$rows = array();
+		foreach ( $dataRows as $dataRow )
+			$rows[] = array(
+				'date' => $dataRow['date'],
+				$metric => $dataRow[$metric],
+			);
+		return($rows);
 	}
 	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
