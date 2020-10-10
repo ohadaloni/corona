@@ -335,14 +335,14 @@ class Corona extends Mcontroller {
 		
 		$row = @$countries[$country];
 		if ( ! $row ) {
-			error_log("flag: $country: no match");
+			error_log("flag: no match: $country");
 			return(null);
 		}
 		$code = strtolower($row['code']);
 		$flag = "$code.png";
 		$imgPath = "../images/flags/$flag";
 		if ( ! file_exists($imgPath) ) {
-			error_log("flag: $country: no file $flag");
+			error_log("flag: no file $flag: $country");
 			return(null);
 		}
 		return($flag);
