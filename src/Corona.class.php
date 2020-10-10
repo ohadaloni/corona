@@ -325,6 +325,10 @@ class Corona extends Mcontroller {
 			'Cura&ccedil;ao' => "cb.png",
 			'Faeroe Islands' => "fo.png", // source mispelled
 			'Saint Martin' => "stMartin.png",
+			'Caribbean Netherlands' => "an.png",
+			/*	'Czechia' => "cz.png",	*/
+			/*	'Czechia' => "cz.png",	*/
+			/*	'Czechia' => "cz.png",	*/
 		);
 		if ( @$exceptions[$country] )
 			return($exceptions[$country]);
