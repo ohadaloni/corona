@@ -321,6 +321,7 @@ class Corona extends Mcontroller {
 			'UK' => "gb.png",
 			'Netherlands' => "nl.png",
 			'Czechia' => "cz.png",
+			'Trinidad and Tobago' => "tt.png",
 		);
 		if ( @$exceptions[$country] )
 			return($exceptions[$country]);
