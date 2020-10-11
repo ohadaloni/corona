@@ -308,6 +308,7 @@ class Corona extends Mcontroller {
 	}
 	/*------------------------------------------------------------*/
 	private function flag($country) {
+		$country = trim($country); // for 'Brunei '
 		static $countries;
 		if ( ! $countries ) {
 			$sql = "select * from countries";
@@ -316,21 +317,68 @@ class Corona extends Mcontroller {
 		}
 		$exceptions = array(
 			'World' => "world.png",
-			'USA' => "us.png",
-			'UAE' => "ae.png",
-			'UK' => "gb.png",
-			'Netherlands' => "nl.png",
-			'Czechia' => "cz.png",
-			'Trinidad and Tobago' => "tt.png",
-			'Cura&ccedil;ao' => "cb.png",
-			'Faeroe Islands' => "fo.png", // source mispelled
 			'Saint Martin' => "stMartin.png",
-			'Caribbean Netherlands' => "an.png",
-			/*	'Czechia' => "cz.png",	*/
-			/*	'Czechia' => "cz.png",	*/
 		);
 		if ( @$exceptions[$country] )
 			return($exceptions[$country]);
+		$notSure = array(
+			'Brunei',
+			'Eswatini',
+			/*	'Ivory Coast' => "Cote D\'Ivoire",	*/
+			'Ivory Coast',
+		);
+		if ( in_array($country, $notSure) ) {
+			/*	error_log("flag: notSure: $country");	*/
+			return(null);
+		}
+		$matchCountries = array(
+			'Caribbean Netherlands' => "Netherland Antilles",
+			'Faeroe Islands' => "Faroe Islands",
+			'Cura&ccedil;ao' => "Curacao",
+			'Trinidad and Tobago' => "Trinidad &amp; Tobago",
+			'Czechia' => "Czech Republic",
+			'USA' => "United States",
+			'UK' => "United Kingdom",
+			'Serbia' => "Republic of Serbia",
+			'Bosnia and Herzegovina' => "Bosnia &amp; Herzegovina",
+			'Vatican City' => "Vatican City State",
+			'Turks and Caicos' => "Turks &amp; Caicos Is",
+			'Timor-Leste' => "East Timor",
+			'Saint Lucia' => "St Lucia",
+			'Saint Kitts and Nevis' => "St Kitts-Nevis",
+			'Sint Maarten' => "St Maarten",
+			'British Virgin Islands' => "Virgin Islands (Brit)",
+			'St. Vincent Grenadines' => "St Vincent &amp; Grenadine",
+			'St. Barth' => "St Barthelemy",
+			'Cabo Verde' => "Cape Verde",
+			'CAR' => "Central African Republic",
+			'Saint Pierre Miquelon' => "St Pierre &amp; Miquelon",
+			'Macao' => "Macau",
+			'Netherlands' => "Netherlands (Holland, Europe)",
+			'UAE' => "United Arab Emirates",
+			'Montenegro' => "Republic of Montenegro",
+			'North Macedonia' => "Macedonia",
+			'R&eacute;union' => "Reunion",
+			'S. Korea' => "Korea South",
+			'Sao Tome and Principe' => "Sao Tome &amp; Principe",
+			'St. Vincent Grenadines' => "St Vincent &amp; Grenadines",
+		);
+		if ( @$matchCountries[$country] )
+			$country = $matchCountries[$country];
+
+		$notInCountries = array(
+			'Antigua and Barbuda',
+			'Western Sahara',
+			'South Sudan',
+			'DRC',
+			'Guinea-Bissau',
+			'Mayotte',
+			'Namibia',
+		);
+		if ( in_array($country, $notInCountries) ) {
+			error_log("flag: notInCountries: $country");
+			return(null);
+		}
 		
 		$row = @$countries[$country];
 		if ( ! $row ) {
