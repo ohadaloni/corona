@@ -312,7 +312,8 @@ class Corona extends Mcontroller {
 		static $countries;
 		if ( ! $countries ) {
 			$sql = "select * from countries";
-			$countries = $this->Mmodel->getRows($sql, 24*3600);
+			/*	$countries = $this->Mmodel->getRows($sql, 24*3600);	*/
+			$countries = $this->Mmodel->getRows($sql);
 			$countries = Mutils::reIndexBy($countries, "name");
 		}
 		$exceptions = array(
@@ -322,16 +323,16 @@ class Corona extends Mcontroller {
 		if ( @$exceptions[$country] )
 			return($exceptions[$country]);
 		$notSure = array(
-			'Brunei',
 			'Eswatini',
 			/*	'Ivory Coast' => "Cote D\'Ivoire",	*/
 			'Ivory Coast',
 		);
 		if ( in_array($country, $notSure) ) {
-			/*	error_log("flag: notSure: $country");	*/
+			error_log("flag: notSure: $country");
 			return(null);
 		}
 		$matchCountries = array(
+			'S. Korea' => "South Korea",
 			'Caribbean Netherlands' => "Netherland Antilles",
 			'Faeroe Islands' => "Faroe Islands",
 			'Cura&ccedil;ao' => "Curacao",
@@ -346,8 +347,6 @@ class Corona extends Mcontroller {
 			'Timor-Leste' => "East Timor",
 			'Saint Lucia' => "St Lucia",
 			'Saint Kitts and Nevis' => "St Kitts-Nevis",
-			'Sint Maarten' => "St Maarten",
-			'British Virgin Islands' => "Virgin Islands (Brit)",
 			'St. Vincent Grenadines' => "St Vincent &amp; Grenadine",
 			'St. Barth' => "St Barthelemy",
 			'Cabo Verde' => "Cape Verde",
@@ -359,7 +358,6 @@ class Corona extends Mcontroller {
 			'Montenegro' => "Republic of Montenegro",
 			'North Macedonia' => "Macedonia",
 			'R&eacute;union' => "Reunion",
-			'S. Korea' => "Korea South",
 			'Sao Tome and Principe' => "Sao Tome &amp; Principe",
 			'St. Vincent Grenadines' => "St Vincent &amp; Grenadines",
 		);
@@ -367,7 +365,6 @@ class Corona extends Mcontroller {
 			$country = $matchCountries[$country];
 
 		$notInCountries = array(
-			'Antigua and Barbuda',
 			'Western Sahara',
 			'South Sudan',
 			'DRC',
