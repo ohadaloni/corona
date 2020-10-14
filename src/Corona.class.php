@@ -319,6 +319,7 @@ class Corona extends Mcontroller {
 		$exceptions = array(
 			'World' => "world.png",
 			'Saint Martin' => "stMartin.png",
+			'Channel Islands' => "gb.png", // not a separate country
 		);
 		if ( @$exceptions[$country] )
 			return($exceptions[$country]);
@@ -356,6 +357,7 @@ class Corona extends Mcontroller {
 			'Netherlands' => "Netherlands (Holland, Europe)",
 			'UAE' => "United Arab Emirates",
 			'Montenegro' => "Republic of Montenegro",
+			'DRC' => "Democtratic Republic of the Congo",
 			'North Macedonia' => "Macedonia",
 			'R&eacute;union' => "Reunion",
 			'Sao Tome and Principe' => "Sao Tome &amp; Principe",
@@ -366,11 +368,8 @@ class Corona extends Mcontroller {
 
 		$notInCountries = array(
 			'Western Sahara',
-			'South Sudan',
-			'DRC',
 			'Guinea-Bissau',
 			'Mayotte',
-			'Namibia',
 		);
 		if ( in_array($country, $notInCountries) ) {
 			error_log("flag: notInCountries: $country");
