@@ -324,7 +324,6 @@ class Corona extends Mcontroller {
 		if ( @$exceptions[$country] )
 			return($exceptions[$country]);
 		$notSure = array(
-			'Eswatini',
 			/*	'Ivory Coast' => "Cote D\'Ivoire",	*/
 			'Ivory Coast',
 		);
@@ -354,6 +353,7 @@ class Corona extends Mcontroller {
 			'CAR' => "Central African Republic",
 			'Saint Pierre Miquelon' => "St Pierre &amp; Miquelon",
 			'Macao' => "Macau",
+			'Eswatini' => "Swaziland",
 			'Netherlands' => "Netherlands (Holland, Europe)",
 			'UAE' => "United Arab Emirates",
 			'Montenegro' => "Republic of Montenegro",
@@ -366,16 +366,6 @@ class Corona extends Mcontroller {
 		if ( @$matchCountries[$country] )
 			$country = $matchCountries[$country];
 
-		$notInCountries = array(
-			'Western Sahara',
-			'Guinea-Bissau',
-			'Mayotte',
-		);
-		if ( in_array($country, $notInCountries) ) {
-			error_log("flag: notInCountries: $country");
-			return(null);
-		}
-		
 		$row = @$countries[$country];
 		if ( ! $row ) {
 			error_log("flag: no match: $country");
