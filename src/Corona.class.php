@@ -230,8 +230,18 @@ class Corona extends Mcontroller {
 			return(null);
 		}
 		$this->ammendRows($rows);
+		$this->cleanRows($rows);
 		$this->Mmemcache->set($mkey, $rows, $this->ttl);
 		return($rows);
+	}
+	/*------------------------------------------------------------*/
+	private function cleanRows(&$rows) {
+		foreach ( $rows as $key => $row )
+			$this->cleanRow($rows[$key]);
+	}
+	/*------------------------------*/
+	private function cleanRow(&$row) {
+		$row['country'] = str_replace("Cura&ccedil;ao", "Curacao", $row['country']);
 	}
 	/*------------------------------------------------------------*/
 	private function ammendRows(&$rows) {
@@ -318,24 +328,16 @@ class Corona extends Mcontroller {
 		}
 		$exceptions = array(
 			'World' => "world.png",
-			'Saint Martin' => "stMartin.png",
 			'Channel Islands' => "gb.png", // not a separate country
 		);
 		if ( @$exceptions[$country] )
 			return($exceptions[$country]);
-		$notSure = array(
-			/*	'Ivory Coast' => "Cote D\'Ivoire",	*/
-			'Ivory Coast',
-		);
-		if ( in_array($country, $notSure) ) {
-			error_log("flag: notSure: $country");
-			return(null);
-		}
+
 		$matchCountries = array(
 			'S. Korea' => "South Korea",
 			'Caribbean Netherlands' => "Netherland Antilles",
 			'Faeroe Islands' => "Faroe Islands",
-			'Cura&ccedil;ao' => "Curacao",
+			/*	'Cura&ccedil;ao' => "Curacao",	*/
 			'Trinidad and Tobago' => "Trinidad &amp; Tobago",
 			'Czechia' => "Czech Republic",
 			'USA' => "United States",
