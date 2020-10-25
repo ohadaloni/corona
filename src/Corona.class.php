@@ -322,8 +322,7 @@ class Corona extends Mcontroller {
 		static $countries;
 		if ( ! $countries ) {
 			$sql = "select * from countries";
-			/*	$countries = $this->Mmodel->getRows($sql, 24*3600);	*/
-			$countries = $this->Mmodel->getRows($sql);
+			$countries = $this->Mmodel->getRows($sql, 7*24*3600);
 			$countries = Mutils::reIndexBy($countries, "name");
 		}
 		$exceptions = array(
@@ -337,7 +336,7 @@ class Corona extends Mcontroller {
 			'S. Korea' => "South Korea",
 			'Caribbean Netherlands' => "Netherland Antilles",
 			'Faeroe Islands' => "Faroe Islands",
-			/*	'Cura&ccedil;ao' => "Curacao",	*/
+			'Cura&ccedil;ao' => "Curacao",
 			'Trinidad and Tobago' => "Trinidad &amp; Tobago",
 			'Czechia' => "Czech Republic",
 			'USA' => "United States",
