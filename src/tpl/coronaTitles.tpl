@@ -265,18 +265,6 @@
 		{/if}
 	</td>
 	<td>
-		<a title="Effective Cases Rate = Heard Immunity Factor if 90% asymptomatic were never tested">ECR</a>
-		{if $links}
-			{if $by == 'EcasesRate'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=EcasesRate"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'EcasesRate'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	<td>
 		<a title="Active Cases Rate">AR</a>
 		{if $links}
 			{if $by == 'activeRate'}
