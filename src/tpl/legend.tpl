@@ -149,16 +149,6 @@
 		<td>This indicates the load on the health care system</td>
 	</tr>
 	<tr class="coronaRow">
-		<td>Pdeath%</td>
-		<td>percentage of deaths/population</td>
-		<td></td>
-	</tr>
-	<tr class="coronaRow">
-		<td>EPdeath%</td>
-		<td>Effective percentage of deaths/population</td>
-		<td></td>
-	</tr>
-	<tr class="coronaRow">
 		<td>testRate</td>
 		<td>percentage of tests/population</td>
 		<td></td>
