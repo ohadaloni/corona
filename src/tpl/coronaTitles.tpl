@@ -202,7 +202,6 @@
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>
-	<!--
 	<td>
 		<a title="Tests Yesterday">ty</a>
 		{if $links}
@@ -215,7 +214,6 @@
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>
-	-->
 	<td style="background-color: #ddd;" width="20px"> </td>
 	<td>
 		<a title="Death Rate per Cases (%)">death%</a>
@@ -287,30 +285,6 @@
 				<a href="/?by=activeRate"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'activeRate'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	<td>
-		<a title="Death Rate from Population (%)">Pdeath%</a>
-		{if $links}
-			{if $by == 'populationDeathRate'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=populationDeathRate"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'populationDeathRate'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	<td>
-		<a title="Effective Death Rate from Population (%)">EPdeath%</a>
-		{if $links}
-			{if $by == 'EpopulationDeathRate'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=EpopulationDeathRate"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'EpopulationDeathRate'}
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>
