@@ -90,7 +90,7 @@
 				>{$row.activeDelta|numberFormat:0}</a>
 			</td>	
 			<td align="right">{$row.tests|numberFormat:0}</td>
-			<!--	<td align="right">{$row.testsYesterday|numberFormat:0}</td>	-->
+			<td align="right">{$row.testsYesterday|numberFormat:0}</td>
 			<td style="background-color: #ddd;" width="20px"> </td>
 			<td align="right">{$row.casesDeathRate|numberFormat:3:'%'}</td>
 			<td align="right">{$row.closedDeathRate|numberFormat:3:'%'}</td>
@@ -99,8 +99,6 @@
 			<td align="right">{$row.casesRate|numberFormat:3:'%'}</td>
 			<td align="right">{$row.EcasesRate|numberFormat:1:'%'}</td>
 			<td align="right">{$row.activeRate|numberFormat:3:'%'}</td>
-			<td align="right">{$row.populationDeathRate|numberFormat:3:'%'}</td>
-			<td align="right">{$row.EpopulationDeathRate|numberFormat:4:'%'}</td>
 			<td align="right">{$row.testRate|numberFormat:1:'%'}</td>
 		</tr>
 	{/foreach}
