@@ -192,10 +192,12 @@ class Corona extends Mcontroller {
 			return(null);
 		}
 		foreach ( $dataRows as $key => $dataRow ) {
-			$active = $dataRow['cases'] - $dataRow['death'] - $dataRow['recovered'];
-			 $dataRows[$key]['active'] = $active;
-			if ( $key > 0 && $metric == 'activeDelta' )
-				$dataRows[$key]['activeDelta'] = $dataRows[$key]['active'] - $dataRows[$key-1]['active'];
+			if ( $dataRow['recovered'] ) {
+				$active = $dataRow['cases'] - $dataRow['death'] - $dataRow['recovered'];
+				$dataRows[$key]['active'] = $active;
+				if ( $key > 0 && $metric == 'activeDelta' )
+					$dataRows[$key]['activeDelta'] = $dataRows[$key]['active'] - $dataRows[$key-1]['active'];
+			}
 		}
 		$rows = array();
 		foreach ( $dataRows as $dataRow )
@@ -572,6 +574,7 @@ class Corona extends Mcontroller {
 			date("Y-m-01", $now - 61*24*3600),
 			date("Y-m-01", $now - 91*24*3600),
 			date("Y-m-01", $now - 122*24*3600),
+			date("Y-m-01", $now - 152*24*3600),
 			'allTime',
 		);
 		return($sinces);
