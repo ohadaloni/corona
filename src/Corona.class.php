@@ -271,8 +271,10 @@ class Corona extends Mcontroller {
 			$row['growth'] = $row['dbyCases'] ? ($row['yesterday']/$row['dbyCases']) * 100 : 0;
 			$row['doubles'] = $this->doubles($row['growth']);
 			$row['today'] = $row['cases'] - $row['yCases'];
-			$row['closed'] = $row['recovered'] + $row['deaths'];
-			$row['active'] = $row['cases'] - $row['closed'];
+			if ( $row['recovered'] ) {
+				$row['closed'] = $row['recovered'] + $row['deaths'];
+				$row['active'] = $row['cases'] - $row['closed'];
+			}
 			$row['dbyActive'] = $row['dbyCases'] - $row['dbyClosed'];
 			$row['yActive'] = $row['yCases'] - $row['yClosed'];
 			$row['activeDelta'] = $row['yActive'] - $row['dbyActive'];
@@ -284,8 +286,10 @@ class Corona extends Mcontroller {
 			/*	Mview::print_r($row, "row", basename(__FILE__), __LINE__, null, false);	*/
 		}
 
-		$row['closed'] = $row['recovered'] + $row['deaths'];
-		$row['active'] = $row['cases'] - $row['closed'];
+		if ( $row['recovered'] ) {
+			$row['closed'] = $row['recovered'] + $row['deaths'];
+			$row['active'] = $row['cases'] - $row['closed'];
+		}
 		$row['casesDeathRate'] =
 			$row['cases'] ?
 				( $row['deaths'] / $row['cases'] ) * 100
