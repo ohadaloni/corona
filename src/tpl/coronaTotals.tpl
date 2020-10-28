@@ -27,7 +27,6 @@
 	<td style="background-color: #ddd;" width="20px"> </td>
 	<td align="right">{$totals.population|numberFormat:0}</td>
 	<td align="right">{$totals.casesRate|numberFormat:3:'%'}</td>
-	<td align="right">{$totals.EcasesRate|numberFormat:1:'%'}</td>
 	<td align="right">{$totals.activeRate|numberFormat:3:'%'}</td>
 	<td align="right">{$totals.testRate|numberFormat:1:'%'}</td>
 </tr>
