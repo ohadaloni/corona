@@ -179,18 +179,6 @@
 		{/if}
 	</td>
 	<td>
-		change
-		{if $links}
-			{if $by == 'activeDelta'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=activeDelta"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'activeDelta'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	<td>
 		tests
 		{if $links}
 			{if $by == 'tests'}
