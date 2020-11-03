@@ -193,7 +193,7 @@ class Corona extends Mcontroller {
 		}
 		foreach ( $dataRows as $key => $dataRow ) {
 			if ( $dataRow['recovered'] ) {
-				$active = $dataRow['cases'] - $dataRow['death'] - $dataRow['recovered'];
+				$active = $dataRow['cases'] - ( $dataRow['deaths'] + $dataRow['recovered']);
 				$dataRows[$key]['active'] = $active;
 				if ( $key > 0 && $metric == 'activeDelta' )
 					$dataRows[$key]['activeDelta'] = $dataRows[$key]['active'] - $dataRows[$key-1]['active'];
