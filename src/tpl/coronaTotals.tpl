@@ -18,7 +18,6 @@
 	<td align="right">{$totals.recovered|numberFormat:0}</td>
 	<td align="right">{$totals.closed|numberFormat:0}</td>
 	<td align="right">{$totals.active|numberFormat:0}</td>
-	<td align="right">{$totals.activeDelta|numberFormat:0}</td>	
 	<td align="right">{$totals.tests|numberFormat:0}</td>
 	<td align="right">{$totals.testsYesterday|numberFormat:0}</td>
 	<td style="background-color: #ddd;" width="20px"> </td>
