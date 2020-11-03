@@ -65,8 +65,6 @@ class Corona extends Mcontroller {
 			'deathsToday' => Mutils::arraySum($rows, "deathsToday"),
 			'recovered' => Mutils::arraySum($rows, "recovered"),
 			'tests' => Mutils::arraySum($rows, "tests"),
-			'yActive' => Mutils::arraySum($rows, "yActive"),
-			'activeDelta' => Mutils::arraySum($rows, "activeDelta"),
 		);
 		$this->ammendRow($totals);
 		$totals['growth'] = ($totals['yesterday']/$totals['dbyCases']) * 100;
@@ -124,7 +122,6 @@ class Corona extends Mcontroller {
 		);
 		$calced = array(
 			'active',
-			'activeDelta',
 		);
 
 		if ( ! $since )
@@ -187,7 +184,7 @@ class Corona extends Mcontroller {
 	}
 	/*------------------------------------------------------------*/
 	private function calcRows($dataRows, $metric) {
-		if ( $metric != 'active' && $metric != 'activeDelta' ) {
+		if ( $metric != 'active' ) {
 			$this->Mview->error("calcRows: $metric: Eh?");
 			return(null);
 		}
@@ -195,8 +192,6 @@ class Corona extends Mcontroller {
 			if ( $dataRow['recovered'] ) {
 				$active = $dataRow['cases'] - ( $dataRow['deaths'] + $dataRow['recovered']);
 				$dataRows[$key]['active'] = $active;
-				if ( $key > 0 && $metric == 'activeDelta' )
-					$dataRows[$key]['activeDelta'] = $dataRows[$key]['active'] - $dataRows[$key-1]['active'];
 			}
 		}
 		$rows = array();
@@ -275,9 +270,6 @@ class Corona extends Mcontroller {
 				$row['closed'] = $row['recovered'] + $row['deaths'];
 				$row['active'] = $row['cases'] - $row['closed'];
 			}
-			$row['dbyActive'] = $row['dbyCases'] - $row['dbyClosed'];
-			$row['yActive'] = $row['yCases'] - $row['yClosed'];
-			$row['activeDelta'] = $row['yActive'] - $row['dbyActive'];
 			$row['deathsYesterday'] = $row['yDeaths']- $row['dbyDeaths'];
 			$row['testsYesterday'] = $row['yTests'] - $row['dbyTests'];
 			$row['deathsGrowth'] = $row['dbyDeaths'] ? ($row['deathsYesterday']/$row['dbyDeaths']) * 100 : 0;
@@ -449,14 +441,6 @@ class Corona extends Mcontroller {
 	/*------------------------------*/
 	private function byActive($b, $a) {
 		return($this->cmp($a['active'], $b['active']));
-	}
-	/*------------------------------*/
-	private function byActiveDelta($b, $a) {
-		return($this->cmp($a['activeDelta'], $b['activeDelta']));
-	}
-	/*------------------------------*/
-	private function byYactive($b, $a) {
-		return($this->cmp($a['yActive'], $b['yActive']));
 	}
 	/*------------------------------*/
 	private function byCasesRate($b, $a) {
