@@ -78,33 +78,11 @@
 		<td>currently sick</td>
 		<td>cases - closed</td>
 	</tr>
-	<!--
-	<tr class="coronaRow">
-		<td>yesterday</td>
-		<td>sick yesterday</td>
-		<td></td>
-	</tr>
-	<tr class="coronaRow">
-		<td>change</td>
-		<td>between yesterday and the day before</td>
-		<td></td>
-	</tr>
-	-->
 	<tr class="coronaRow">
 		<td>tests</td>
 		<td>tests performed</td>
 		<td></td>
 	</tr>
-	<!--
-	<tr class="coronaRow">
-		<td>ty</td>
-		<td>tests yesterday</td>
-		<td>
-			the daily data jumps once in several days for some countries,
-			so the information might be misleading
-		</td>
-	</tr>
-	-->
 	<tr class="coronaRow">
 		<td>death%</td>
 		<td>percentage of deaths/cases.</td>
