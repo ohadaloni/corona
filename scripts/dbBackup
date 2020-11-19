@@ -16,7 +16,7 @@ cd $corona
 set opts=( --complete-insert --skip-quote-names --lock-tables=FALSE --extended-insert=FALSE )
 
 set db=corona
-set file=scripts/dbBackup.sql
+set file=scripts/backups/db.sql
 
 mysqldump $loginArgs $opts $db \
 		| fgrep -v 'Dump completed on'\
