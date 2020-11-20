@@ -82,7 +82,13 @@
 					target="_blank"
 				>{$row.active|numberFormat:0}</a>
 			</td>
-			<td align="right">{$row.tests|numberFormat:0}</td>
+			<td align="right">
+				<a
+					href="/corona/historyGraph?country={$row.country}&metric=tests"
+					title="history graph"
+					target="_blank"
+				>{$row.tests|numberFormat:0}</a>
+			</td>
 			<td align="right">{$row.testsYesterday|numberFormat:0}</td>
 			<td style="background-color: #ddd;" width="20px"> </td>
 			<td align="right">{$row.casesDeathRate|numberFormat:3:'%'}</td>
