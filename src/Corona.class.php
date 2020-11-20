@@ -129,7 +129,6 @@ class Corona extends Mcontroller {
 
 		if ( ! $since )
 			$since = date("Y-m-01", time() - 30*24*3600);
-		$sinces = $this->sinces();
 		$country = $this->Mmodel->str($country);
 		$metric = $this->Mmodel->str($metric);
 
@@ -183,7 +182,7 @@ class Corona extends Mcontroller {
 			'country' => $country,
 			'metric' => $metric,
 			'since' => $since,
-			'sinces' => $sinces,
+			'sinces' => $this->sinces(),
 		));
 	}
 	/*------------------------------------------------------------*/
