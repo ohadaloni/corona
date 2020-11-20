@@ -93,7 +93,11 @@ class Corona extends Mcontroller {
 		$xAxis = array();
 		$lines = array();
 		foreach ( $rows as $row ) {
-			$xAxis[] = $row['date'];
+			$date = $row['date'];
+			$time = strtotime($date);
+			$wday = date('D', $time);
+			$x = "$wday $date";
+			$xAxis[] = $x;
 			$lines[] = array(
 				$metric => $row[$metric],
 			);
