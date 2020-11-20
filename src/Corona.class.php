@@ -112,16 +112,19 @@ class Corona extends Mcontroller {
 
 		$cumulative = array(
 			'cases',
-			'deaths'
+			'deaths',
+			'tests',
 		);
 		$dailies = array(
 			'today',
 			'yesterday',
 			'deathsToday',
 			'deathsYesterday',
+			'testsYesterday',
 		);
 		$calced = array(
 			'active',
+			'testRate',
 		);
 
 		if ( ! $since )
@@ -152,7 +155,8 @@ class Corona extends Mcontroller {
 			$rows = $this->Mmodel->getRows($sql);
 			$this->graph($rows, $metric, $title);
 		} else if ( in_array($metric, $dailies) ) {
-			$baseMetric = stristr($metric, 'deaths') ? 'deaths' : 'cases';
+			// take off Yesterday, but not yesterday
+			$baseMetric = str_replace("Yesterday", "", $metric);
 			$title = "daily $baseMetric in $country$sinceTitle";
 			$sql = "select date, $baseMetric from covid19 where $conds $orderBy";
 			$baseMetricRows = $this->Mmodel->getRows($sql);
@@ -184,10 +188,10 @@ class Corona extends Mcontroller {
 	}
 	/*------------------------------------------------------------*/
 	private function calcRows($dataRows, $metric) {
-		if ( $metric != 'active' ) {
-			$this->Mview->error("calcRows: $metric: Eh?");
-			return(null);
-		}
+		/*	if ( $metric != 'active' ) {	*/
+			/*	$this->Mview->error("calcRows: $metric: Eh?");	*/
+			/*	return(null);	*/
+		/*	}	*/
 		foreach ( $dataRows as $key => $dataRow ) {
 			if ( $dataRow['recovered'] ) {
 				$active = $dataRow['cases'] - ( $dataRow['deaths'] + $dataRow['recovered']);
