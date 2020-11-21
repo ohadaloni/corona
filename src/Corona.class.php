@@ -158,8 +158,9 @@ class Corona extends Mcontroller {
 			$rows = $this->Mmodel->getRows($sql);
 			$this->graph($rows, $metric, $title);
 		} else if ( in_array($metric, $dailies) ) {
-			// take off Yesterday, but not yesterday
-			$baseMetric = str_replace("Yesterday", "", $metric);
+			$baseMetric =
+				( $metric == 'testsYesterday' ) ? "tests" :
+				( stristr($metric, 'deaths') ? 'deaths' : 'cases' );
 			$title = "daily $baseMetric in $country$sinceTitle";
 			$sql = "select date, $baseMetric from covid19 where $conds $orderBy";
 			$baseMetricRows = $this->Mmodel->getRows($sql);
