@@ -295,7 +295,7 @@ class Corona extends Mcontroller {
 				( $row['deaths'] / $row['cases'] ) * 100
 				: 0;
 		$row['closedDeathRate'] =
-			$row['closed'] ?
+			@$row['closed'] ?
 				( $row['deaths'] / $row['closed'] ) * 100
 				: 0;
 		$population = $this->population($row['country']);
@@ -305,7 +305,7 @@ class Corona extends Mcontroller {
 				( $row['cases'] / $population ) * 100 ;
 			$row['EcasesRate'] = $row['casesRate'] * 10 ;
 			$row['activeRate'] = 
-				( $row['active'] / $population ) * 100 ;
+				@$row['active'] ? ( $row['active'] / $population ) * 100 : 0 ;
 			$row['populationDeathRate'] =
 				( $row['deaths'] / $population ) * 100 ;
 			$row['EpopulationDeathRate'] = $row['populationDeathRate'] / 10 ;
