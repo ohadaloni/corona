@@ -102,6 +102,7 @@
 			<td style="background-color: #ddd;" width="20px"> </td>
 			<td align="right">{$row.population|numberFormat:0}</td>
 			<td align="right">{$row.casesRate|numberFormat:3:'%'}</td>
+			<td align="right">{$row.populationDeathRate|numberFormat:4:'%'}</td>
 			<td align="right">{$row.activeRate|numberFormat:3:'%'}</td>
 			<td align="right">{$row.testRate|numberFormat:1:'%'}</td>
 		</tr>

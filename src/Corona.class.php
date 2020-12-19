@@ -308,13 +308,11 @@ class Corona extends Mcontroller {
 				@$row['active'] ? ( $row['active'] / $population ) * 100 : 0 ;
 			$row['populationDeathRate'] =
 				( $row['deaths'] / $population ) * 100 ;
-			$row['EpopulationDeathRate'] = $row['populationDeathRate'] / 10 ;
 			$row['testRate'] = 
 				( $row['tests'] / $population ) * 100 ;
 		} else {
 			$row['population'] = 0 ;
 			$row['populationDeathRate'] = 0;
-			$row['EpopulationDeathRate'] = 0;
 			$row['casesRate'] = 0;
 			$row['EcasesRate'] = 0;
 			$row['activeRate'] = 0;
@@ -489,10 +487,6 @@ class Corona extends Mcontroller {
 	/*------------------------------*/
 	private function byPopulationDeathRate($b, $a) {
 		return($this->cmp($a['populationDeathRate'], $b['populationDeathRate']));
-	}
-	/*------------------------------*/
-	private function byEpopulationDeathRate($b, $a) {
-		return($this->cmp($a['EpopulationDeathRate'], $b['EpopulationDeathRate']));
 	}
 	/*------------------------------------------------------------*/
 	private function population($country) {
