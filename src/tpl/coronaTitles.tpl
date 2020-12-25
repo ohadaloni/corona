@@ -202,6 +202,18 @@
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>
+	<td>
+		<a title="Vaccinated">v</a>
+		{if $links}
+			{if $by == 'vaccinated'}
+				<img src="/images/circles/green.png">
+			{else}
+				<a href="/?by=vaccinated"><img src="/images/arrowDown.png"></a>
+			{/if}
+		{elseif $by == 'vaccinated'}
+			<img src="/images/circles/fade/green.png">
+		{/if}
+	</td>
 	<td style="background-color: #ddd;" width="20px"> </td>
 	<td>
 		<a title="Death Rate per Cases (%)">death%</a>
@@ -277,7 +289,7 @@
 		{/if}
 	</td>
 	<td>
-		testRate
+		<a title="Test Rate">TR</a>
 		{if $links}
 			{if $by == 'testRate'}
 				<img src="/images/circles/green.png">
@@ -285,6 +297,18 @@
 				<a href="/?by=testRate"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'testRate'}
+			<img src="/images/circles/fade/green.png">
+		{/if}
+	</td>
+	<td>
+		<a title="Vaccinated Rate">VR</a>
+		{if $links}
+			{if $by == 'vaccinatedRate'}
+				<img src="/images/circles/green.png">
+			{else}
+				<a href="/?by=vaccinatedRate"><img src="/images/arrowDown.png"></a>
+			{/if}
+		{elseif $by == 'vaccinatedRate'}
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>
