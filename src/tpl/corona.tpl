@@ -96,15 +96,31 @@
 					target="_blank"
 				>{$row.testsYesterday|numberFormat:0}</a>
 			</td>
+			<td align="right">
+				<a
+					href="/corona/historyGraph?country={$row.country}&metric=vaccinated"
+					title="history graph"
+					target="_blank"
+				>{$row.vaccinated|numberFormat:0}</a>
+			</td>
 			<td style="background-color: #ddd;" width="20px"> </td>
 			<td align="right">{$row.casesDeathRate|numberFormat:3:'%'}</td>
 			<td align="right">{$row.closedDeathRate|numberFormat:3:'%'}</td>
 			<td style="background-color: #ddd;" width="20px"> </td>
-			<td align="right">{$row.population|numberFormat:0}</td>
+
+			<td align="right">
+				<a
+					href="/corona/historyGraph?country={$row.country}&metric=population"
+					title="rates history graph"
+					target="_blank"
+				>{$row.population|numberFormat:0}</a>
+			</td>
+
 			<td align="right">{$row.casesRate|numberFormat:3:'%'}</td>
 			<td align="right">{$row.populationDeathRate|numberFormat:4:'%'}</td>
 			<td align="right">{$row.activeRate|numberFormat:3:'%'}</td>
 			<td align="right">{$row.testRate|numberFormat:1:'%'}</td>
+			<td align="right">{$row.vaccinatedRate|numberFormat:1:'%'}</td>
 		</tr>
 	{/foreach}
 	</table>
