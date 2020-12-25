@@ -84,6 +84,11 @@
 		<td></td>
 	</tr>
 	<tr class="coronaRow">
+		<td>Vaccinated</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr class="coronaRow">
 		<td>death%</td>
 		<td>percentage of deaths/cases.</td>
 		<td>
@@ -129,6 +134,11 @@
 	<tr class="coronaRow">
 		<td>testRate</td>
 		<td>percentage of tests/population</td>
+		<td></td>
+	</tr>
+	<tr class="coronaRow">
+		<td>vaccinatedRate</td>
+		<td>percentage of vaccinated/population</td>
 		<td></td>
 	</tr>
 <table>
