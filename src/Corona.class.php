@@ -62,6 +62,7 @@ class Corona extends Mcontroller {
 			'dbyDeaths' => Mutils::arraySum($rows, "dbyDeaths"),
 			'deathsYesterday' => Mutils::arraySum($rows, "deathsYesterday"),
 			'testsYesterday' => Mutils::arraySum($rows, "testsYesterday"),
+			'vaccinatedYesterday' => Mutils::arraySum($rows, "vaccinatedYesterday"),
 			'deathsToday' => Mutils::arraySum($rows, "deathsToday"),
 			'recovered' => Mutils::arraySum($rows, "recovered"),
 			'tests' => Mutils::arraySum($rows, "tests"),
@@ -125,10 +126,12 @@ class Corona extends Mcontroller {
 			'deathsToday',
 			'deathsYesterday',
 			'testsYesterday',
+			'vaccinatedYesterday',
 		);
 		$calced = array(
 			'active',
 			'testRate',
+			'vaccinatedRate',
 		);
 
 		if ( ! $since )
@@ -159,8 +162,11 @@ class Corona extends Mcontroller {
 			$this->graph($rows, $metric, $title);
 		} else if ( in_array($metric, $dailies) ) {
 			$baseMetric =
-				( $metric == 'testsYesterday' ) ? "tests" :
-				( stristr($metric, 'deaths') ? 'deaths' : 'cases' );
+				( $metric == 'vaccinatedYesterday' ) ? "vaccinated" :
+				(
+					( $metric == 'testsYesterday' ) ? "tests" :
+					( stristr($metric, 'deaths') ? 'deaths' : 'cases' )
+				);
 			$title = "daily $baseMetric in $country$sinceTitle";
 			$sql = "select date, $baseMetric from covid19 where $conds $orderBy";
 			$baseMetricRows = $this->Mmodel->getRows($sql);
@@ -177,8 +183,13 @@ class Corona extends Mcontroller {
 			$sql = "select * from covid19 where $conds $orderBy";
 			$dataRows = $this->Mmodel->getRows($sql);
 			$rows = $this->calcRows($dataRows, $metric);
-			$title = "$metric in $country$sinceTitle";
-			$this->graph($rows, $metric, $title);
+			if ( $metric == $population ) {
+				$title = "Rates/population in $country$sinceTitle";
+				$this->ratesGraph($rows, $title);
+			} else {
+				$title = "$metric in $country$sinceTitle";
+				$this->graph($rows, $metric, $title);
+			}
 		} else {
 			$this->Mview->error("historyGraph: $metric: Eh?");
 			return;
@@ -268,7 +279,10 @@ class Corona extends Mcontroller {
 			$row['yClosed'] = $row['yRecovered'] + $row['yDeaths'];
 			$row['dbyClosed'] = $row['dbyRecovered'] + $row['dbyDeaths'];
 			$row['dbyTests'] = $this->metric($country, $dby, 'tests');
+			$row['dbyVaccinated'] = $this->metric($country, $dby, 'vaccinated');
 			$row['yTests'] = $this->metric($country, $yesterday, 'tests');
+			$row['yTests'] = $this->metric($country, $yesterday, 'tests');
+			$row['yVaccinated'] = $this->metric($country, $yesterday, 'vaccinated');
 
 			$row['yesterday'] = $row['yCases'] - $row['dbyCases'];
 			$row['growth'] = $row['dbyCases'] ? ($row['yesterday']/$row['dbyCases']) * 100 : 0;
@@ -280,6 +294,7 @@ class Corona extends Mcontroller {
 			}
 			$row['deathsYesterday'] = $row['yDeaths']- $row['dbyDeaths'];
 			$row['testsYesterday'] = $row['yTests'] - $row['dbyTests'];
+			$row['vaccinatedYesterday'] = $row['yVaccinated'] - $row['dbyVaccinated'];
 			$row['deathsGrowth'] = $row['dbyDeaths'] ? ($row['deathsYesterday']/$row['dbyDeaths']) * 100 : 0;
 			$row['deathsDoubles'] = $this->doubles($row['deathsGrowth']);
 			$row['deathsToday'] = $row['deaths'] - $row['yDeaths'];
@@ -431,6 +446,18 @@ class Corona extends Mcontroller {
 	/*------------------------------*/
 	private function byTestsYesterday($b, $a) {
 		return($this->cmp($a['testsYesterday'], $b['testsYesterday']));
+	}
+	/*------------------------------*/
+	private function byVaccinated($b, $a) {
+		return($this->cmp($a['vaccinated'], $b['vaccinated']));
+	}
+	/*------------------------------*/
+	private function byVaccinatedYesterday($b, $a) {
+		return($this->cmp($a['vaccinatedYesterday'], $b['vaccinatedYesterday']));
+	}
+	/*------------------------------*/
+	private function byVaccinatedRate($b, $a) {
+		return($this->cmp($a['vaccinatedRate'], $b['vaccinatedRate']));
 	}
 	/*------------------------------*/
 	private function byDeathsGrowth($b, $a) {
