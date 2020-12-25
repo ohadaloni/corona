@@ -90,6 +90,27 @@ class Corona extends Mcontroller {
 		$this->index();
 	}
 	/*------------------------------------------------------------*/
+	private function ratesGraph($rows, $title) {
+		$xAxis = array();
+		$lines = array();
+		foreach ( $rows as $row ) {
+			$date = $row['date'];
+			$time = strtotime($date);
+			$wday = date('D', $time);
+			$x = "$wday $date";
+			$xAxis[] = $x;
+			$lines[] = array(
+				'cases' => $row['casesRate'],
+				'deaths' => $row['populationDeathRate'],
+				'active' => $row['activeRate'],
+				'tests' => $row['testRate'],
+				'vaccinated' => $row['vaccinatedRate'],
+			);
+		}
+		$ml = new MlineGraphs;
+		$ml->lineGraphs($lines, $title, "crHistoryuGraph", $xAxis);
+	}
+	/*------------------------------------------------------------*/
 	private function graph($rows, $metric, $title) {
 		$xAxis = array();
 		$lines = array();
@@ -132,6 +153,7 @@ class Corona extends Mcontroller {
 			'active',
 			'testRate',
 			'vaccinatedRate',
+			'population',
 		);
 
 		if ( ! $since )
@@ -182,11 +204,13 @@ class Corona extends Mcontroller {
 		} else if ( in_array($metric, $calced) ) {
 			$sql = "select * from covid19 where $conds $orderBy";
 			$dataRows = $this->Mmodel->getRows($sql);
-			$rows = $this->calcRows($dataRows, $metric);
-			if ( $metric == $population ) {
+			if ( $metric == 'population' ) {
 				$title = "Rates/population in $country$sinceTitle";
-				$this->ratesGraph($rows, $title);
+				$this->ammendRows($dataRows);
+
+				$this->ratesGraph($dataRows, $title);
 			} else {
+				$rows = $this->calcRows($dataRows, $metric);
 				$title = "$metric in $country$sinceTitle";
 				$this->graph($rows, $metric, $title);
 			}
