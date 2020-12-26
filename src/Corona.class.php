@@ -140,6 +140,7 @@ class Corona extends Mcontroller {
 			'cases',
 			'deaths',
 			'tests',
+			'vaccinated',
 		);
 		$dailies = array(
 			'today',
@@ -349,6 +350,8 @@ class Corona extends Mcontroller {
 				( $row['deaths'] / $population ) * 100 ;
 			$row['testRate'] = 
 				( $row['tests'] / $population ) * 100 ;
+			$row['vaccinatedRate'] = 
+				( $row['vaccinated'] / $population ) * 100 ;
 		} else {
 			$row['population'] = 0 ;
 			$row['populationDeathRate'] = 0;
@@ -356,6 +359,7 @@ class Corona extends Mcontroller {
 			$row['EcasesRate'] = 0;
 			$row['activeRate'] = 0;
 			$row['testRate'] = 0;
+			$row['vaccinatedRate'] = 0;
 		}
 		$row['flag'] = $this->flag($country);
 	}
