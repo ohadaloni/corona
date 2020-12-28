@@ -21,6 +21,7 @@
 	<td align="right">{$totals.tests|numberFormat:0}</td>
 	<td align="right">{$totals.testsYesterday|numberFormat:0}</td>
 	<td align="right">{$totals.vaccinated|numberFormat:0}</td>
+	<td align="right">{$totals.vaccinatedYesterday|numberFormat:0}</td>
 	<td style="background-color: #ddd;" width="20px"> </td>
 	<td align="right">{$totals.casesDeathRate|numberFormat:3:'%'}</td>
 	<td align="right">{$totals.closedDeathRate|numberFormat:3:'%'}</td>

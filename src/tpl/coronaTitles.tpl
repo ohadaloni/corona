@@ -214,6 +214,18 @@
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>
+	<td>
+		<a title="Vaccinated Yesterday">vy</a>
+		{if $links}
+			{if $by == 'vaccinatedYesterday'}
+				<img src="/images/circles/green.png">
+			{else}
+				<a href="/?by=vaccinatedYesterday"><img src="/images/arrowDown.png"></a>
+			{/if}
+		{elseif $by == 'vaccinatedYesterday'}
+			<img src="/images/circles/fade/green.png">
+		{/if}
+	</td>
 	<td style="background-color: #ddd;" width="20px"> </td>
 	<td>
 		<a title="Death Rate per Cases (%)">death%</a>
