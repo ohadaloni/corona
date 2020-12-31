@@ -33,7 +33,7 @@
 		{/if}
 	</td>
 	<td>
-		yesterday
+		<a title="Cases Yesterday">y</a>
 		{if $links}
 			{if $by == 'yesterday'}
 				<img src="/images/circles/green.png">
@@ -94,7 +94,7 @@
 		{/if}
 	</td>
 	<td>
-		yesterday
+		<a title="Deaths Yesterday">dy</a>
 		{if $links}
 			{if $by == 'deathsYesterday'}
 				<img src="/images/circles/green.png">
@@ -228,7 +228,7 @@
 	</td>
 	<td style="background-color: #ddd;" width="20px"> </td>
 	<td>
-		<a title="Death Rate per Cases (%)">death%</a>
+		<a title="Death Rate per Cases (%)">d%</a>
 		{if $links}
 			{if $by == 'casesDeathRate'}
 				<img src="/images/circles/green.png">
@@ -240,7 +240,7 @@
 		{/if}
 	</td>
 	<td>
-		<a title="Death Rate per Closed Cases (%)">Cdeath%</a>
+		<a title="Death Rate per Closed Cases (%)">cd%</a>
 		{if $links}
 			{if $by == 'closedDeathRate'}
 				<img src="/images/circles/green.png">
