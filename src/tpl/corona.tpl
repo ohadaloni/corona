@@ -127,7 +127,7 @@
 			<td align="right">{$row.populationDeathRate|numberFormat:4:'%'}</td>
 			<td align="right">{$row.activeRate|numberFormat:3:'%'}</td>
 			<td align="right">{$row.testRate|numberFormat:1:'%'}</td>
-			<td align="right">{$row.vaccinatedRate|numberFormat:1:'%'}</td>
+			<td align="right">{$row.vaccinatedRate|numberFormat:2:'%'}</td>
 		</tr>
 	{/foreach}
 	</table>
