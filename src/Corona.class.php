@@ -12,7 +12,7 @@ class Corona extends Mcontroller {
 		parent::__construct();
 		$this->coronaUtils = new CoronaUtils;
 		$this->Mmemcache = new Mmemcache;
-		$this->ttl = 300;
+		$this->ttl = 60;
 	}
 	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
@@ -252,8 +252,8 @@ class Corona extends Mcontroller {
 		$date = date("Y-m-d");
 		$mkey = "getRows-$date";
 		$rows = $this->Mmemcache->get($mkey);
-		/*	if ( $rows )	*/
-			/*	return($rows);	*/
+		if ( $rows )
+			return($rows);
 		$todayCond = "date = '$date'";
 		$obsoleteCountries = array(
 			/*	"Diamond Princess and the likes",	*/
