@@ -436,7 +436,7 @@ class Corona extends Mcontroller {
 	}
 	/*------------------------------*/
 	/*------------------------------*/
-	private function byCountry($b, $a) {
+	private function byCountry($a, $b) {
 		return(strcmp($a['country'], $b['country']));
 	}
 	/*------------------------------*/
