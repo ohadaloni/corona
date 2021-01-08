@@ -141,4 +141,12 @@
 		<td>percentage of vaccinated/population</td>
 		<td></td>
 	</tr>
+	<tr class="coronaRow">
+		<td>vdl</td>
+		<td>Vaccination Days Left</td>
+		<td>
+			Days left to vaccinate the entire population
+			according to yesterday's vaccinations
+		</td>
+	</tr>
 <table>
