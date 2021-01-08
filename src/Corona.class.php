@@ -545,8 +545,11 @@ class Corona extends Mcontroller {
 	}
 	/*------------------------------------------------------------*/
 	private function population($country) {
-		if ( $country == 'World' )
-			return($this->worldPopulation());
+		if ( $country == 'World' ) {
+			$sql = "select sum(population) from populations";
+			$worldPopulation = $this->Mmodel->getInt($sql, $this->ttl);
+			return($worldPopulation);
+		}
 		$sql = "select population from populations where country = '$country'";
 		$population = $this->Mmodel->getInt($sql, $this->ttl);
 		if ( ! $population ) {
@@ -554,37 +557,6 @@ class Corona extends Mcontroller {
 			return(null);
 		}
 		return($population);
-	}
-	/*------------------------------------------------------------*/
-	private function qpsKeys() {
-		return(array(
-			array(
-				'title' => 'this second',
-				'key' => "qps-".date("Y-m-d H:i:s"),
-				'ttl' => 3,
-			),
-			array(
-				'title' => 'this minute',
-				'key' => "qpm-".date("Y-m-d H:i"),
-				'ttl' => 70,
-			),
-			array(
-				'title' => 'this hour',
-				'key' => "qph-".date("Y-m-d H"),
-				'ttl' => 3700,
-			),
-			array(
-				'title' => 'today',
-				'key' => "qpd-".date("Y-m-d"),
-				'ttl' => 25*3600,
-			),
-		));
-	}
-	/*------------------------------------------------------------*/
-	private function worldPopulation() {
-		$sql = "select sum(population) from populations";
-		$worldPopulation = $this->Mmodel->getInt($sql, $this->ttl);
-		return($worldPopulation);
 	}
 	/*------------------------------------------------------------*/
 	private function metric($country, $date, $metric) {
