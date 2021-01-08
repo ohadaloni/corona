@@ -62,6 +62,7 @@ class Corona extends Mcontroller {
 			'dbyDeaths' => Mutils::arraySum($rows, "dbyDeaths"),
 			'deathsYesterday' => Mutils::arraySum($rows, "deathsYesterday"),
 			'testsYesterday' => Mutils::arraySum($rows, "testsYesterday"),
+			'vaccinated' => Mutils::arraySum($rows, "vaccinated"),
 			'vaccinatedYesterday' => Mutils::arraySum($rows, "vaccinatedYesterday"),
 			'deathsToday' => Mutils::arraySum($rows, "deathsToday"),
 			'recovered' => Mutils::arraySum($rows, "recovered"),
