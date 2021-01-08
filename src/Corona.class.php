@@ -582,17 +582,9 @@ class Corona extends Mcontroller {
 	}
 	/*------------------------------------------------------------*/
 	private function worldPopulation() {
-		$key = "worldPopulation";
-		$worldPopulation = $this->Mmemcache->get($key);
-		if ( $worldPopulation )
-			return($worldPopulation);
-		$worldPopulation = $this->scrapeWorldPopulation();
-		$this->Mmemcache->set($key, $worldPopulation, 900);
+		$sql = "select sum(population) from populations";
+		$worldPopulation = $this->Mmodel->getInt($sql, $this->ttl);
 		return($worldPopulation);
-	}
-	/*------------------------------------------------------------*/
-	private function scrapeWorldPopulation() {
-		return(7.8*1000*1000*1000);
 	}
 	/*------------------------------------------------------------*/
 	private function metric($country, $date, $metric) {
