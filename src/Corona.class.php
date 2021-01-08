@@ -292,8 +292,9 @@ class Corona extends Mcontroller {
 	}
 	/*------------------------------*/
 	private function ammendRow(&$row) {
-		$dby = date("Y-m-d", time() - 2*24*3600);
+		$today = date("Y-m-d");
 		$yesterday = date("Y-m-d", time() - 24*3600);
+		$dby = date("Y-m-d", time() - 2*24*3600);
 		$country = $row['country'];
 		if ( $country != 'World' ) {
 			$row['dbyCases'] = $this->metric($country, $dby, 'cases');
@@ -353,6 +354,16 @@ class Corona extends Mcontroller {
 				( $row['tests'] / $population ) * 100 ;
 			$row['vaccinatedRate'] = 
 				( $row['vaccinated'] / $population ) * 100 ;
+			if ( $row['vaccinatedYesterday'] ) {
+				// Fri Jan  8 15:21:00 IST 2021
+				// ignoring 2 shots per person
+				// the source ignore it for now, or build in to their numbers
+				// so no choice
+				$left2Vaccinate = $row['population'] - $row['vaccinated'];
+				$row['vaccinationDaysLeft'] = round($left2Vaccinate / $row['vaccinatedYesterday']);
+			} else {
+				$row['vaccinationDaysLeft'] = 0;
+			}
 		} else {
 			$row['population'] = 0 ;
 			$row['populationDeathRate'] = 0;
@@ -487,6 +498,10 @@ class Corona extends Mcontroller {
 	/*------------------------------*/
 	private function byVaccinatedRate($b, $a) {
 		return($this->cmp($a['vaccinatedRate'], $b['vaccinatedRate']));
+	}
+	/*------------------------------*/
+	private function byVaccinationDaysLeft($b, $a) {
+		return($this->cmp($a['vaccinationDaysLeft'], $b['vaccinationDaysLeft']));
 	}
 	/*------------------------------*/
 	private function byDeathsGrowth($b, $a) {
