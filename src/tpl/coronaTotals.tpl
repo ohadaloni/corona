@@ -32,4 +32,5 @@
 	<td align="right">{$totals.activeRate|numberFormat:3:'%'}</td>
 	<td align="right">{$totals.testRate|numberFormat:1:'%'}</td>
 	<td align="right">{$totals.vaccinatedRate|numberFormat:1:'%'}</td>
+	<td align="right">{$totals.vaccinationDaysLeft|numberFormat:0}</td>
 </tr>
