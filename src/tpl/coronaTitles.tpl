@@ -324,4 +324,16 @@
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>
+	<td>
+		<a title="Vaccination Days Left">VDL</a>
+		{if $links}
+			{if $by == 'vaccinationDaysLeft'}
+				<img src="/images/circles/green.png">
+			{else}
+				<a href="/?by=vaccinationDaysLeft"><img src="/images/arrowDown.png"></a>
+			{/if}
+		{elseif $by == 'vaccinationDaysLeft'}
+			<img src="/images/circles/fade/green.png">
+		{/if}
+	</td>
 </tr>
