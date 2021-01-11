@@ -37,7 +37,7 @@
 					href="/corona/historyGraph?country={$row.country}&metric=yesterday"
 					title="history graph"
 					target="_blank"
-				>{$row.yesterday|numberFormat:0}</a>
+				>{if $row.yesterday}{$row.yesterday|numberFormat:0}{else}---{/if}</a>
 			</td>
 			<td align="right">{$row.growth|numberFormat:2:'%'}</td>
 			<td align="right">{$row.doubles|numberFormat:0}</td>
@@ -46,7 +46,7 @@
 					href="/corona/historyGraph?country={$row.country}&metric=today"
 					title="history graph"
 					target="_blank"
-				>{$row.today|numberFormat:0}</a>
+				>{if $row.today}{$row.today|numberFormat:0}{else}---{/if}</a>
 			</td>
 			<td style="background-color: #ddd;" width="20px"> </td>
 			<td align="right">
@@ -61,7 +61,7 @@
 					href="/corona/historyGraph?country={$row.country}&metric=deathsYesterday"
 					title="history graph"
 					target="_blank"
-				>{$row.deathsYesterday|numberFormat:0}</a>
+				>{if $row.deathsYesterday}{$row.deathsYesterday|numberFormat:0}{elseif $row.deaths}---{/if}</a>
 			</td>
 			<td align="right">{$row.deathsGrowth|numberFormat:2:'%'}</td>
 			<td align="right">{$row.deathsDoubles|numberFormat:0}</td>
@@ -70,7 +70,7 @@
 					href="/corona/historyGraph?country={$row.country}&metric=deathsToday"
 					title="history graph"
 					target="_blank"
-				>{$row.deathsToday|numberFormat:0}</a>
+				>{if $row.deathsToday}{$row.deathsToday|numberFormat:0}{elseif $row.deaths}---{/if}</a>
 			</td>
 			<td style="background-color: #ddd;" width="20px"> </td>
 			<td align="right">{$row.recovered|numberFormat:0}</td>
@@ -89,13 +89,15 @@
 					target="_blank"
 				>{$row.tests|numberFormat:0}</a>
 			</td>
+			<!--
 			<td align="right">
 				<a
 					href="/corona/historyGraph?country={$row.country}&metric=testsYesterday"
 					title="history graph"
 					target="_blank"
-				>{$row.testsYesterday|numberFormat:0}</a>
+				>{if $row.testsYesterday}{$row.testsYesterday|numberFormat:0}{else}---{/if}</a>
 			</td>
+			-->
 			<td align="right">
 				<a
 					href="/corona/historyGraph?country={$row.country}&metric=vaccinated"
@@ -108,7 +110,7 @@
 					href="/corona/historyGraph?country={$row.country}&metric=vaccinatedYesterday"
 					title="history graph"
 					target="_blank"
-				>{$row.vaccinatedYesterday|numberFormat:0}</a>
+				>{if $row.vaccinatedYesterday}{$row.vaccinatedYesterday|numberFormat:0}{elseif $row.vaccinated}---{/if}</a>
 			</td>
 			<td style="background-color: #ddd;" width="20px"> </td>
 			<td align="right">{$row.casesDeathRate|numberFormat:3:'%'}</td>
@@ -126,9 +128,12 @@
 			<td align="right">{$row.casesRate|numberFormat:3:'%'}</td>
 			<td align="right">{$row.populationDeathRate|numberFormat:4:'%'}</td>
 			<td align="right">{$row.activeRate|numberFormat:3:'%'}</td>
-			<td align="right">{$row.testRate|numberFormat:1:'%'}</td>
+			<!--	<td align="right">{$row.testRate|numberFormat:1:'%'}</td>	-->
 			<td align="right">{$row.vaccinatedRate|numberFormat:3:'%'}</td>
-			<td align="right">{$row.vaccinationDaysLeft|numberFormat:0}</td>
+			<td align="right">{$row.vaccinationLastWeekAverage|numberFormat:0}</td>
+			<td align="right">
+				{if $row.vaccinationDaysLeft < 2000}{$row.vaccinationDaysLeft|numberFormat:0}{/if}
+			</td>
 		</tr>
 	{/foreach}
 	</table>
