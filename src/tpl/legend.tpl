@@ -131,14 +131,21 @@
 		<td>Active Rate - percentage of active/population</td>
 		<td>This indicates the load on the health care system</td>
 	</tr>
+	<!--
 	<tr class="coronaRow">
 		<td>testRate</td>
 		<td>percentage of tests/population</td>
 		<td></td>
 	</tr>
+	-->
 	<tr class="coronaRow">
 		<td>vaccinatedRate</td>
 		<td>percentage of vaccinated/population</td>
+		<td></td>
+	</tr>
+	<tr class="coronaRow">
+		<td>VLWA</td>
+		<td>Vaccinations Last Week Daily Average</td>
 		<td></td>
 	</tr>
 	<tr class="coronaRow">
@@ -146,7 +153,7 @@
 		<td>Vaccination Days Left</td>
 		<td>
 			Days left to vaccinate the entire population
-			according to yesterday's vaccinations
+			according to Last Week Daily Average
 		</td>
 	</tr>
 <table>
