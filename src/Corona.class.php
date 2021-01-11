@@ -187,7 +187,7 @@ class Corona extends Mcontroller {
 			$this->graph($rows, $metric, $title);
 		} else if ( in_array($metric, $dailies) ) {
 			$baseMetric =
-				( $metric == 'vaccinatedYesterday' || $metric = 'vaccinationLastWeekAverage' ) ?
+				( $metric == 'vaccinatedYesterday' || $metric == 'vaccinationLastWeekAverage' ) ?
 					"vaccinated" :
 					(
 						( $metric == 'testsYesterday' ) ? "tests" :
