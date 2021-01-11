@@ -150,6 +150,7 @@ class Corona extends Mcontroller {
 			'deathsYesterday',
 			'testsYesterday',
 			'vaccinatedYesterday',
+			'vaccinationLastWeekAverage',
 		);
 		$calced = array(
 			'active',
@@ -186,11 +187,12 @@ class Corona extends Mcontroller {
 			$this->graph($rows, $metric, $title);
 		} else if ( in_array($metric, $dailies) ) {
 			$baseMetric =
-				( $metric == 'vaccinatedYesterday' ) ? "vaccinated" :
-				(
-					( $metric == 'testsYesterday' ) ? "tests" :
-					( stristr($metric, 'deaths') ? 'deaths' : 'cases' )
-				);
+				( $metric == 'vaccinatedYesterday' || $metric = 'vaccinationLastWeekAverage' ) ?
+					"vaccinated" :
+					(
+						( $metric == 'testsYesterday' ) ? "tests" :
+						( stristr($metric, 'deaths') ? 'deaths' : 'cases' )
+					);
 			$title = "daily $baseMetric in $country$sinceTitle";
 			$sql = "select date, $baseMetric from covid19 where $conds $orderBy";
 			$baseMetricRows = $this->Mmodel->getRows($sql);
@@ -354,13 +356,10 @@ class Corona extends Mcontroller {
 				( $row['tests'] / $population ) * 100 ;
 			$row['vaccinatedRate'] = 
 				( $row['vaccinated'] / $population ) * 100 ;
-			if ( $row['vaccinatedYesterday'] ) {
-				// Fri Jan  8 15:21:00 IST 2021
-				// ignoring 2 shots per person
-				// the source ignore it for now, or build in to their numbers
-				// so no choice
+			$row['vaccinationLastWeekAverage'] = $this->vaccinationLastWeekAverage($row['country'], $row['vaccinated']);
+			if ( $row['vaccinationLastWeekAverage'] ) {
 				$left2Vaccinate = $row['population'] - $row['vaccinated'];
-				$row['vaccinationDaysLeft'] = round($left2Vaccinate / $row['vaccinatedYesterday']);
+				$row['vaccinationDaysLeft'] = round($left2Vaccinate / $row['vaccinationLastWeekAverage']);
 			} else {
 				$row['vaccinationDaysLeft'] = 0;
 			}
@@ -374,6 +373,20 @@ class Corona extends Mcontroller {
 			$row['vaccinatedRate'] = 0;
 		}
 		$row['flag'] = $this->flag($country);
+	}
+	/*------------------------------------------------------------*/
+	private function vaccinationLastWeekAverage($country, $vaccinatedNow) {
+		if ( ! $vaccinatedNow )
+			return(0);
+		$aWeekAgo = date("Y-m-d", time() - 7*24*3600);
+		$sql = "select vaccinated from covid19 where country = '$country' and date = '$aWeekAgo'";
+		$vaccinatedThen = $this->Mmodel->getInt($sql);
+		if ( ! $vaccinatedThen )
+			$vaccinatedThen = 0;
+			
+		$vaccinatedLastWeek = $vaccinatedNow - $vaccinatedThen;
+		$avg = round($vaccinatedLastWeek / 7) ;
+		return($avg);
 	}
 	/*------------------------------------------------------------*/
 	private function flag($country) {
@@ -498,6 +511,10 @@ class Corona extends Mcontroller {
 	/*------------------------------*/
 	private function byVaccinatedRate($b, $a) {
 		return($this->cmp($a['vaccinatedRate'], $b['vaccinatedRate']));
+	}
+	/*------------------------------*/
+	private function byVaccinationLastWeekAverage($b, $a) {
+		return($this->cmp($a['vaccinationLastWeekAverage'], $b['vaccinationLastWeekAverage']));
 	}
 	/*------------------------------*/
 	private function byVaccinationDaysLeft($b, $a) {
