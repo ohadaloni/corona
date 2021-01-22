@@ -584,13 +584,13 @@ class Corona extends Mcontroller {
 			$startDate = date("Y-m-d", $now - 8*$day);
 			$endDate = date("Y-m-d", $now - 1*$day);
 		}
-		if ( $country ) {
+		if ( $country == 'World' ) {
+			$startSql = "select sum($what) from covid19 where date = '$startDate'";
+			$endSql = "select sum($what) from covid19 where date = '$endDate'";
+		} else {
 			$countryCond = "country = '$country'";
 			$startSql = "select $what from covid19 where date = '$startDate' and $countryCond";
 			$endSql = "select $what from covid19 where date = '$endDate' and $countryCond";
-		} else {
-			$startSql = "select sum($what) from covid19 where date = '$startDate'";
-			$endSql = "select sum($what) from covid19 where date = '$endDate'";
 		}
 		$startTotal = $this->Mmodel->getInt($startSql, $this->ttl);
 		$endTotal = $this->Mmodel->getInt($endSql, $this->ttl);
