@@ -21,14 +21,9 @@
 		<td>midnight is Israel Time</td>
 	</tr>
 	<tr class="coronaRow">
-		<td>growth</td>
-		<td>yesterday since b4</td>
+		<td>R</td>
+		<td>Latest 7 full days, compared to previous</td>
 		<td></td>
-	</tr>
-	<tr class="coronaRow">
-		<td>dt</td>
-		<td>doubling time</td>
-		<td>doubles every so many days</td>
 	</tr>
 	<tr class="coronaRow">
 		<td>today</td>
@@ -47,16 +42,6 @@
 		<td>yesterday</td>
 		<td>deaths yesterday</td>
 		<td></td>
-	</tr>
-	<tr class="coronaRow">
-		<td>growth</td>
-		<td>yesterday since b4</td>
-		<td></td>
-	</tr>
-	<tr class="coronaRow">
-		<td>ddt</td>
-		<td>deaths doubling time</td>
-		<td>doubles every so many days</td>
 	</tr>
 	<tr class="coronaRow">
 		<td>today</td>
@@ -85,7 +70,7 @@
 	</tr>
 	<tr class="coronaRow">
 		<td>Vaccinated</td>
-		<td></td>
+		<td>Single dose as per woid</td>
 		<td></td>
 	</tr>
 	<tr class="coronaRow">
@@ -106,9 +91,6 @@
 			<br />
 			maximum pessimism CFR.<br />
 			death occurs sooner than recovery.<br />
-			<br />
-			this number is higher than the actual death rate,<br />
-			during exponetial growth.
 		</td>
 	</tr>
 	<tr class="coronaRow">
