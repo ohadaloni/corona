@@ -39,8 +39,7 @@
 					target="_blank"
 				>{if $row.yesterday}{$row.yesterday|numberFormat:0}{else}---{/if}</a>
 			</td>
-			<td align="right">{$row.growth|numberFormat:2:'%'}</td>
-			<td align="right">{$row.doubles|numberFormat:0}</td>
+			<td align="right">{$row.R|numberFormat:2:'%'}</td>
 			<td align="right">
 				<a
 					href="/corona/historyGraph?country={$row.country}&metric=today"
@@ -63,8 +62,6 @@
 					target="_blank"
 				>{if $row.deathsYesterday}{$row.deathsYesterday|numberFormat:0}{elseif $row.deaths}---{/if}</a>
 			</td>
-			<td align="right">{$row.deathsGrowth|numberFormat:2:'%'}</td>
-			<td align="right">{$row.deathsDoubles|numberFormat:0}</td>
 			<td align="right">
 				<a
 					href="/corona/historyGraph?country={$row.country}&metric=deathsToday"
