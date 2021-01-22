@@ -5,14 +5,11 @@
 	<td style="background-color: #ddd;" width="20px"></td>
 	<td align="right">{$totals.cases|numberFormat:0}</td>
 	<td align="right">{$totals.yesterday|numberFormat:0}</td>
-	<td align="right">{$totals.growth|numberFormat:2:'%'}</td>
-	<td align="right">{$totals.doubles|numberFormat:0}</td>
+	<td align="right">{$totals.R|numberFormat:2:'%'}</td>
 	<td align="right">{$totals.today|numberFormat:0}</td>
 	<td style="background-color: #ddd;" width="20px"> </td>
 	<td align="right">{$totals.deaths|numberFormat:0}</td>
 	<td align="right">{$totals.deathsYesterday|numberFormat:0}</td>
-	<td align="right">{$totals.deathsGrowth|numberFormat:2:'%'}</td>
-	<td align="right">{$totals.deathsDoubles|numberFormat:0}</td>
 	<td align="right">{$totals.deathsToday|numberFormat:0}</td>
 	<td style="background-color: #ddd;" width="20px"> </td>
 	<td align="right">{$totals.recovered|numberFormat:0}</td>
