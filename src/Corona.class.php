@@ -69,10 +69,7 @@ class Corona extends Mcontroller {
 			'tests' => Mutils::arraySum($rows, "tests"),
 		);
 		$this->ammendRow($totals);
-		$totals['growth'] = ($totals['yesterday']/$totals['dbyCases']) * 100;
-		$totals['doubles'] = $this->doubles($totals['growth']);
-		$totals['deathsGrowth'] = ($totals['deathsYesterday']/$totals['dbyDeaths']) * 100;
-		$totals['deathsDoubles'] = $this->doubles($totals['deathsGrowth']);
+		$totals['R'] = $this->R(null);
 		$this->Mview->showTpl("corona.tpl", array(
 			'rows' => $rows,
 			'totals' => $totals,
@@ -310,12 +307,10 @@ class Corona extends Mcontroller {
 			$row['dbyTests'] = $this->metric($country, $dby, 'tests');
 			$row['dbyVaccinated'] = $this->metric($country, $dby, 'vaccinated');
 			$row['yTests'] = $this->metric($country, $yesterday, 'tests');
-			$row['yTests'] = $this->metric($country, $yesterday, 'tests');
 			$row['yVaccinated'] = $this->metric($country, $yesterday, 'vaccinated');
 
+			$row['R'] = $this->R($country);
 			$row['yesterday'] = $row['yCases'] - $row['dbyCases'];
-			$row['growth'] = $row['dbyCases'] ? ($row['yesterday']/$row['dbyCases']) * 100 : 0;
-			$row['doubles'] = $this->doubles($row['growth']);
 			$row['today'] = $row['cases'] - $row['yCases'];
 			if ( $row['recovered'] ) {
 				$row['closed'] = $row['recovered'] + $row['deaths'];
@@ -324,8 +319,6 @@ class Corona extends Mcontroller {
 			$row['deathsYesterday'] = $row['yDeaths']- $row['dbyDeaths'];
 			$row['testsYesterday'] = $row['yTests'] - $row['dbyTests'];
 			$row['vaccinatedYesterday'] = $row['yVaccinated'] - $row['dbyVaccinated'];
-			$row['deathsGrowth'] = $row['dbyDeaths'] ? ($row['deathsYesterday']/$row['dbyDeaths']) * 100 : 0;
-			$row['deathsDoubles'] = $this->doubles($row['deathsGrowth']);
 			$row['deathsToday'] = $row['deaths'] - $row['yDeaths'];
 			/*	Mview::print_r($row, "row", basename(__FILE__), __LINE__, null, false);	*/
 		}
@@ -342,7 +335,7 @@ class Corona extends Mcontroller {
 			@$row['closed'] ?
 				( $row['deaths'] / $row['closed'] ) * 100
 				: 0;
-		$population = $this->population($row['country']);
+		$population = $this->population($country);
 		if ( $population ) {
 			$row['population'] = $population ;
 			$row['casesRate'] = 
@@ -355,10 +348,10 @@ class Corona extends Mcontroller {
 			$row['testRate'] = 
 				( $row['tests'] / $population ) * 100 ;
 			$row['vaccinatedRate'] = 
-				( $row['vaccinated'] / $population ) * 100 ;
-			$row['vaccinationLastWeekAverage'] = $this->vaccinationLastWeekAverage($row['country'], $row['vaccinated']);
+				( $row['vaccinated'] / $population ) * 100 / 2 ; // rate shows 1/2, 2 doses per person
+			$row['vaccinationLastWeekAverage'] = $this->weekAverage($country, false, 'vaccinated');
 			if ( $row['vaccinationLastWeekAverage'] ) {
-				$left2Vaccinate = $row['population'] - $row['vaccinated'];
+				$left2Vaccinate = $row['population'] * 2 - $row['vaccinated']; // 2 doses per person
 				$row['vaccinationDaysLeft'] = round($left2Vaccinate / $row['vaccinationLastWeekAverage']);
 			} else {
 				$row['vaccinationDaysLeft'] = 0;
@@ -373,20 +366,6 @@ class Corona extends Mcontroller {
 			$row['vaccinatedRate'] = 0;
 		}
 		$row['flag'] = $this->flag($country);
-	}
-	/*------------------------------------------------------------*/
-	private function vaccinationLastWeekAverage($country, $vaccinatedNow) {
-		if ( ! $vaccinatedNow )
-			return(0);
-		$aWeekAgo = date("Y-m-d", time() - 7*24*3600);
-		$sql = "select vaccinated from covid19 where country = '$country' and date = '$aWeekAgo'";
-		$vaccinatedThen = $this->Mmodel->getInt($sql);
-		if ( ! $vaccinatedThen )
-			$vaccinatedThen = 0;
-			
-		$vaccinatedLastWeek = $vaccinatedNow - $vaccinatedThen;
-		$avg = round($vaccinatedLastWeek / 7) ;
-		return($avg);
 	}
 	/*------------------------------------------------------------*/
 	private function flag($country) {
@@ -457,6 +436,10 @@ class Corona extends Mcontroller {
 	// sort functions = /showBy?by=funcName
 	/*------------------------------*/
 	private function cmp($a, $b) {
+		if ( ! $a )
+			$a = 0;
+		if ( ! $b )
+			$b = 0;
 		return($a > $b ? 1 : ( $a < $b ? -1 : 0 ) );
 	}
 	/*------------------------------*/
@@ -473,16 +456,8 @@ class Corona extends Mcontroller {
 		return($this->cmp($a['yesterday'], $b['yesterday']));
 	}
 	/*------------------------------*/
-	private function byGrowth($b, $a) {
-		return($this->cmp($a['growth'], $b['growth']));
-	}
-	/*------------------------------*/
-	private function byDoubles($b, $a) {
-		return($this->cmp($a['doubles'], $b['doubles']));
-	}
-	/*------------------------------*/
-	private function byDeathsDoubles($b, $a) {
-		return($this->cmp($a['deathsDoubles'], $b['deathsDoubles']));
+	private function byR($b, $a) {
+		return($this->cmp($a['R'], $b['R']));
 	}
 	/*------------------------------*/
 	private function byToday($b, $a) {
@@ -519,10 +494,6 @@ class Corona extends Mcontroller {
 	/*------------------------------*/
 	private function byVaccinationDaysLeft($b, $a) {
 		return($this->cmp($a['vaccinationDaysLeft'], $b['vaccinationDaysLeft']));
-	}
-	/*------------------------------*/
-	private function byDeathsGrowth($b, $a) {
-		return($this->cmp($a['deathsGrowth'], $b['deathsGrowth']));
 	}
 	/*------------------------------*/
 	private function byDeathsToday($b, $a) {
@@ -622,21 +593,38 @@ class Corona extends Mcontroller {
 		return($sinces);
 	}
 	/*------------------------------------------------------------*/
-	private function doubles($growth) {
-		if ( $growth == 0 )
-			return(0);
-		if ( $growth > 100 )
-			return(0);
-		$base = 1 + $growth/100;
-		if ( $base <= 1.0 )
-			return(0);
-		$numdays = 1;
-		$double = $base;
-		while ( $double < 2 ) {
-			$double = $double * $base;
-			$numdays++;
+	private function weekAverage($country, $prev = false, $what = 'cases') {
+		$now = time();
+		$day = 24*3600;
+		if (  $prev ) {
+			$startDate = date("Y-m-d", $now - 15*$day);
+			$endDate = date("Y-m-d", $now - 8*$day);
+		} else {
+			$startDate = date("Y-m-d", $now - 8*$day);
+			$endDate = date("Y-m-d", $now - 1*$day);
 		}
-		return($numdays);
+		if ( $country ) {
+			$countryCond = "country = '$country'";
+			$startSql = "select $what from covid19 where date = '$startDate' and $countryCond";
+			$endSql = "select $what from covid19 where date = '$endDate' and $countryCond";
+		} else {
+			$startSql = "select sum($what) from covid19 where date = '$startDate'";
+			$endSql = "select sum($what) from covid19 where date = '$endDate'";
+		}
+		$startTotal = $this->Mmodel->getInt($startSql, $this->ttl);
+		$endTotal = $this->Mmodel->getInt($endSql, $this->ttl);
+		$total = $endTotal - $startTotal ;
+		$weekAverage = $total / 7 ;
+		return($weekAverage);
+	}
+	/*------------------------------------------------------------*/
+	private function R($country) {
+		$prevWeekAverage = $this->weekAverage($country, true);
+		$thisWeekAverage = $this->weekAverage($country, false);
+		if ( ! $prevWeekAverage )
+			return(null);
+		$R = $thisWeekAverage / $prevWeekAverage ;
+		return($R);
 	}
 	/*------------------------------------------------------------*/
 }
