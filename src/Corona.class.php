@@ -61,7 +61,6 @@ class Corona extends Mcontroller {
 			'deaths' => Mutils::arraySum($rows, "deaths"),
 			'dbyDeaths' => Mutils::arraySum($rows, "dbyDeaths"),
 			'deathsYesterday' => Mutils::arraySum($rows, "deathsYesterday"),
-			'testsYesterday' => Mutils::arraySum($rows, "testsYesterday"),
 			'vaccinated' => Mutils::arraySum($rows, "vaccinated"),
 			'vaccinatedYesterday' => Mutils::arraySum($rows, "vaccinatedYesterday"),
 			'deathsToday' => Mutils::arraySum($rows, "deathsToday"),
@@ -101,7 +100,6 @@ class Corona extends Mcontroller {
 				'cases' => $row['casesRate'],
 				'deaths' => $row['populationDeathRate'],
 				'active' => $row['activeRate'],
-				'tests' => $row['testRate'],
 				'vaccinated' => $row['vaccinatedRate'],
 			);
 		}
@@ -145,13 +143,11 @@ class Corona extends Mcontroller {
 			'yesterday',
 			'deathsToday',
 			'deathsYesterday',
-			'testsYesterday',
 			'vaccinatedYesterday',
 			'vaccinationLastWeekAverage',
 		);
 		$calced = array(
 			'active',
-			'testRate',
 			'vaccinatedRate',
 			'population',
 		);
@@ -186,10 +182,7 @@ class Corona extends Mcontroller {
 			$baseMetric =
 				( $metric == 'vaccinatedYesterday' || $metric == 'vaccinationLastWeekAverage' ) ?
 					"vaccinated" :
-					(
-						( $metric == 'testsYesterday' ) ? "tests" :
-						( stristr($metric, 'deaths') ? 'deaths' : 'cases' )
-					);
+					 ( stristr($metric, 'deaths') ? 'deaths' : 'cases' );
 			$title = "daily $baseMetric in $country$sinceTitle";
 			$sql = "select date, $baseMetric from covid19 where $conds $orderBy";
 			$baseMetricRows = $this->Mmodel->getRows($sql);
@@ -317,7 +310,6 @@ class Corona extends Mcontroller {
 				$row['active'] = $row['cases'] - $row['closed'];
 			}
 			$row['deathsYesterday'] = $row['yDeaths']- $row['dbyDeaths'];
-			$row['testsYesterday'] = $row['yTests'] - $row['dbyTests'];
 			$row['vaccinatedYesterday'] = $row['yVaccinated'] - $row['dbyVaccinated'];
 			$row['deathsToday'] = $row['deaths'] - $row['yDeaths'];
 			/*	Mview::print_r($row, "row", basename(__FILE__), __LINE__, null, false);	*/
@@ -345,8 +337,6 @@ class Corona extends Mcontroller {
 				@$row['active'] ? ( $row['active'] / $population ) * 100 : 0 ;
 			$row['populationDeathRate'] =
 				( $row['deaths'] / $population ) * 100 ;
-			$row['testRate'] = 
-				( $row['tests'] / $population ) * 100 ;
 			$row['vaccinatedRate'] = 
 				( $row['vaccinated'] / $population ) * 100 / 2 ; // rate shows 1/2, 2 doses per person
 			$row['vaccinationLastWeekAverage'] = $this->weekAverage($country, false, 'vaccinated');
@@ -362,7 +352,6 @@ class Corona extends Mcontroller {
 			$row['casesRate'] = 0;
 			$row['EcasesRate'] = 0;
 			$row['activeRate'] = 0;
-			$row['testRate'] = 0;
 			$row['vaccinatedRate'] = 0;
 		}
 		$row['flag'] = $this->flag($country);
@@ -472,10 +461,6 @@ class Corona extends Mcontroller {
 		return($this->cmp($a['deathsYesterday'], $b['deathsYesterday']));
 	}
 	/*------------------------------*/
-	private function byTestsYesterday($b, $a) {
-		return($this->cmp($a['testsYesterday'], $b['testsYesterday']));
-	}
-	/*------------------------------*/
 	private function byVaccinated($b, $a) {
 		return($this->cmp($a['vaccinated'], $b['vaccinated']));
 	}
@@ -534,10 +519,6 @@ class Corona extends Mcontroller {
 	/*------------------------------*/
 	private function byClosedDeathRate($b, $a) {
 		return($this->cmp($a['closedDeathRate'], $b['closedDeathRate']));
-	}
-	/*------------------------------*/
-	private function byTestRate($b, $a) {
-		return($this->cmp($a['testRate'], $b['testRate']));
 	}
 	/*------------------------------*/
 	private function byTests($b, $a) {
