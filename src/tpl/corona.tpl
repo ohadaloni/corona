@@ -118,9 +118,7 @@
 			<td align="right">{$row.activeRate|numberFormat:3:'%'}</td>
 			<td align="right">{$row.vaccinatedRate|numberFormat:3:'%'}</td>
 			<td align="right">{$row.vaccinationLastWeekAverage|numberFormat:0}</td>
-			<td align="right">
-				{if $row.vaccinationDaysLeft < 100000}{$row.vaccinationDaysLeft|numberFormat:0}{/if}
-			</td>
+			<td align="right">{$row.vaccinationDaysLeft|numberFormat:0}</td>
 		</tr>
 	{/foreach}
 	</table>
