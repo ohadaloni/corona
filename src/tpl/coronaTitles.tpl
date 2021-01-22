@@ -154,20 +154,6 @@
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>
-	<!--
-	<td>
-		<a title="Tests Yesterday">ty</a>
-		{if $links}
-			{if $by == 'testsYesterday'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=testsYesterday"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'testsYesterday'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	-->
 	<td>
 		<a title="Vaccinated - sigle dose count">v</a>
 		{if $links}
@@ -266,20 +252,6 @@
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>
-	<!--
-	<td>
-		<a title="Test Rate">TR</a>
-		{if $links}
-			{if $by == 'testRate'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=testRate"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'testRate'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	-->
 	<td>
 		<a title="Vaccinated Rate">VR</a>
 		{if $links}
