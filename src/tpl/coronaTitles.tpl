@@ -45,26 +45,14 @@
 		{/if}
 	</td>
 	<td>
-		growth
+		R
 		{if $links}
-			{if $by == 'growth'}
+			{if $by == 'R'}
 				<img src="/images/circles/green.png">
 			{else}
-				<a href="/?by=growth"><img src="/images/arrowDown.png"></a>
+				<a href="/?by=R"><img src="/images/arrowDown.png"></a>
 			{/if}
-		{elseif $by == 'growth'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	<td>
-		<a title="Doubling Time (in days)">dt</a>
-		{if $links}
-			{if $by == 'doubles'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=doubles"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'doubles'}
+		{elseif $by == 'R'}
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>
@@ -102,30 +90,6 @@
 				<a href="/?by=deathsYesterday"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'deathsYesterday'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	<td>
-		growth
-		{if $links}
-			{if $by == 'deathsGrowth'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=deathsGrowth"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'deathsGrowth'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	<td>
-		<a title="Doubling Time (in days)">ddt</a>
-		{if $links}
-			{if $by == 'deathsDoubles'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=deathsDoubles"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'deathsDoubles'}
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>
@@ -205,7 +169,7 @@
 	</td>
 	-->
 	<td>
-		<a title="Vaccinated">v</a>
+		<a title="Vaccinated - sigle dose count">v</a>
 		{if $links}
 			{if $by == 'vaccinated'}
 				<img src="/images/circles/green.png">
