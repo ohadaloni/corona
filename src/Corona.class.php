@@ -153,7 +153,7 @@ class Corona extends Mcontroller {
 		);
 
 		if ( ! $since )
-			$since = date("Y-m-01", time() - 30*24*3600);
+			$since = date("Y-m-01", time() - 91*24*3600);
 		$country = $this->Mmodel->str($country);
 		$metric = $this->Mmodel->str($metric);
 
@@ -563,12 +563,19 @@ class Corona extends Mcontroller {
 	private function sinces() {
 		$now = time();
 		$sinces = array(
-			date("Y-m-01"),
-			date("Y-m-01", $now - 30*24*3600),
-			date("Y-m-01", $now - 61*24*3600),
-			date("Y-m-01", $now - 91*24*3600),
-			date("Y-m-01", $now - 122*24*3600),
+			date("Y-m-01", $now - 370*24*3600),
+			date("Y-m-01", $now - 340*24*3600),
+			date("Y-m-01", $now - 310*24*3600),
+			date("Y-m-01", $now - 275*24*3600),
+			date("Y-m-01", $now - 245*24*3600),
+			date("Y-m-01", $now - 215*24*3600),
+			date("Y-m-01", $now - 182*24*3600),
 			date("Y-m-01", $now - 152*24*3600),
+			date("Y-m-01", $now - 122*24*3600),
+			date("Y-m-01", $now - 91*24*3600),
+			date("Y-m-01", $now - 61*24*3600),
+			date("Y-m-01", $now - 30*24*3600),
+			date("Y-m-01"),
 			'allTime',
 		);
 		return($sinces);
