@@ -68,7 +68,6 @@ class Corona extends Mcontroller {
 			'tests' => Mutils::arraySum($rows, "tests"),
 		);
 		$this->ammendRow($totals);
-		$totals['R'] = $this->R(null);
 		$this->Mview->showTpl("corona.tpl", array(
 			'rows' => $rows,
 			'totals' => $totals,
@@ -150,6 +149,7 @@ class Corona extends Mcontroller {
 			'active',
 			'vaccinatedRate',
 			'population',
+			'R',
 		);
 
 		if ( ! $since )
@@ -221,14 +221,16 @@ class Corona extends Mcontroller {
 	}
 	/*------------------------------------------------------------*/
 	private function calcRows($dataRows, $metric) {
-		/*	if ( $metric != 'active' ) {	*/
-			/*	$this->Mview->error("calcRows: $metric: Eh?");	*/
-			/*	return(null);	*/
-		/*	}	*/
 		foreach ( $dataRows as $key => $dataRow ) {
-			if ( $dataRow['recovered'] ) {
-				$active = $dataRow['cases'] - ( $dataRow['deaths'] + $dataRow['recovered']);
-				$dataRows[$key]['active'] = $active;
+			if ( $metric == 'active' ) {
+				if ( $dataRow['recovered'] ) {
+					$active = $dataRow['cases'] - ( $dataRow['deaths'] + $dataRow['recovered']);
+					$dataRows[$key]['active'] = $active;
+				}
+			}
+			if ( $metric == 'R' ) {
+					/*	Mview::print_r($dataRow['country'], "dataRow['country']", basename(__FILE__), __LINE__, null, false);	*/
+					$dataRows[$key]['R'] = $this->R($dataRow['country'], $dataRow['date']);
 			}
 		}
 		$rows = array();
@@ -302,7 +304,6 @@ class Corona extends Mcontroller {
 			$row['yTests'] = $this->metric($country, $yesterday, 'tests');
 			$row['yVaccinated'] = $this->metric($country, $yesterday, 'vaccinated');
 
-			$row['R'] = $this->R($country);
 			$row['yesterday'] = $row['yCases'] - $row['dbyCases'];
 			$row['today'] = $row['cases'] - $row['yCases'];
 			if ( $row['recovered'] ) {
@@ -312,8 +313,8 @@ class Corona extends Mcontroller {
 			$row['deathsYesterday'] = $row['yDeaths']- $row['dbyDeaths'];
 			$row['vaccinatedYesterday'] = $row['yVaccinated'] - $row['dbyVaccinated'];
 			$row['deathsToday'] = $row['deaths'] - $row['yDeaths'];
-			/*	Mview::print_r($row, "row", basename(__FILE__), __LINE__, null, false);	*/
 		}
+		$row['R'] = $this->R($country);
 
 		if ( $row['recovered'] ) {
 			$row['closed'] = $row['recovered'] + $row['deaths'];
@@ -581,15 +582,17 @@ class Corona extends Mcontroller {
 		return($sinces);
 	}
 	/*------------------------------------------------------------*/
-	private function weekAverage($country, $prev = false, $what = 'cases') {
-		$now = time();
-		$day = 24*3600;
+	private function weekAverage($country, $prev = false, $what = 'cases', $todayDate = null) {
+		if ( ! $todayDate )
+			$todayDate = date("Y-m-d");
+		$todayTime = strtotime($todayDate);
+		$daySecs = 24*3600;
 		if (  $prev ) {
-			$startDate = date("Y-m-d", $now - 15*$day);
-			$endDate = date("Y-m-d", $now - 8*$day);
+			$startDate = date("Y-m-d", $todayTime - 15*$daySecs);
+			$endDate = date("Y-m-d", $todayTime - 8*$daySecs);
 		} else {
-			$startDate = date("Y-m-d", $now - 8*$day);
-			$endDate = date("Y-m-d", $now - 1*$day);
+			$startDate = date("Y-m-d", $todayTime - 8*$daySecs);
+			$endDate = date("Y-m-d", $todayTime - 1*$daySecs);
 		}
 		if ( $country == 'World' ) {
 			$startSql = "select sum($what) from covid19 where date = '$startDate'";
@@ -606,9 +609,9 @@ class Corona extends Mcontroller {
 		return($weekAverage);
 	}
 	/*------------------------------------------------------------*/
-	private function R($country) {
-		$prevWeekAverage = $this->weekAverage($country, true);
-		$thisWeekAverage = $this->weekAverage($country, false);
+	private function R($country, $todayDate = null) {
+		$prevWeekAverage = $this->weekAverage($country, true, 'cases', $todayDate);
+		$thisWeekAverage = $this->weekAverage($country, false, 'cases', $todayDate);
 		if ( ! $prevWeekAverage )
 			return(null);
 		$R = $thisWeekAverage / $prevWeekAverage ;
