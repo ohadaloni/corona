@@ -39,7 +39,13 @@
 					target="_blank"
 				>{if $row.yesterday}{$row.yesterday|numberFormat:0}{else}---{/if}</a>
 			</td>
-			<td align="right">{$row.R|numberFormat:2:'%'}</td>
+			<td align="right">
+				<a
+					href="/corona/historyGraph?country={$row.country}&metric=R"
+					title="history graph"
+					target="_blank"
+				>{if $row.R}{$row.R|numberFormat:2:'%'}{else}---{/if}</a>
+			</td>
 			<td align="right">
 				<a
 					href="/corona/historyGraph?country={$row.country}&metric=today"
