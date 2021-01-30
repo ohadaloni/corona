@@ -257,7 +257,6 @@ class Corona extends Mcontroller {
 			return($rows);
 		$todayCond = "date = '$date'";
 		$obsoleteCountries = array(
-			/*	"Diamond Princess and the likes",	*/
 			"Diamond Princess",
 			"MS Zaandam",
 		);
@@ -369,7 +368,7 @@ class Corona extends Mcontroller {
 		static $countries;
 		if ( ! $countries ) {
 			$sql = "select * from countries";
-			$countries = $this->Mmodel->getRows($sql, 7*24*3600);
+			$countries = $this->Mmodel->getRows($sql, 24*3600);
 			$countries = Mutils::reIndexBy($countries, "name");
 		}
 		$exceptions = array(
