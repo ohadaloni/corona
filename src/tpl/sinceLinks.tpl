@@ -1,4 +1,8 @@
 since:
-{foreach from=$sinces item=since}
-	<a href="/corona/historyGraph?country={$country}&metric={$metric}&since={$since}">{$since}</a>
+{foreach from=$sinces item=s}
+	{if $s == $since}
+		{$s}
+	{else}
+		<a href="/corona/historyGraph?country={$country}&metric={$metric}&since={$s}">{$s}</a>
+	{/if}
 {/foreach}
