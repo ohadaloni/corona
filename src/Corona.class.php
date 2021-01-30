@@ -148,6 +148,7 @@ class Corona extends Mcontroller {
 		);
 		$calced = array(
 			'active',
+			'population',
 			'closed',
 			'R',
 		);
