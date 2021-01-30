@@ -76,8 +76,20 @@
 				>{if $row.deathsToday}{$row.deathsToday|numberFormat:0}{elseif $row.deaths}---{/if}</a>
 			</td>
 			<td style="background-color: #ddd;" width="20px"> </td>
-			<td align="right">{$row.recovered|numberFormat:0}</td>
-			<td align="right">{$row.closed|numberFormat:0}</td>
+			<td align="right">
+				<a
+					href="/corona/historyGraph?country={$row.country}&metric=recovered"
+					title="history graph"
+					target="_blank"
+				>{$row.recovered|numberFormat:0}</a>
+			</td>
+			<td align="right">
+				<a
+					href="/corona/historyGraph?country={$row.country}&metric=closed"
+					title="history graph"
+					target="_blank"
+				>{$row.closed|numberFormat:0}</a>
+			</td>
 			<td align="right">
 				<a
 					href="/corona/historyGraph?country={$row.country}&metric=active"
