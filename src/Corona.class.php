@@ -134,6 +134,7 @@ class Corona extends Mcontroller {
 		$cumulative = array(
 			'cases',
 			'deaths',
+			'recovered',
 			'tests',
 			'vaccinated',
 		);
@@ -147,8 +148,7 @@ class Corona extends Mcontroller {
 		);
 		$calced = array(
 			'active',
-			'vaccinatedRate',
-			'population',
+			'closed',
 			'R',
 		);
 
@@ -228,8 +228,13 @@ class Corona extends Mcontroller {
 					$dataRows[$key]['active'] = $active;
 				}
 			}
+			if ( $metric == 'closed' ) {
+				if ( $dataRow['recovered'] ) {
+					$closed = $dataRow['deaths'] + $dataRow['recovered'];
+					$dataRows[$key]['closed'] = $closed;
+				}
+			}
 			if ( $metric == 'R' ) {
-					/*	Mview::print_r($dataRow['country'], "dataRow['country']", basename(__FILE__), __LINE__, null, false);	*/
 					$dataRows[$key]['R'] = $this->R($dataRow['country'], $dataRow['date']);
 			}
 		}
