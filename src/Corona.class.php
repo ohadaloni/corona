@@ -124,8 +124,6 @@ class Corona extends Mcontroller {
 	}
 	/*------------------------------------------------------------*/
 	public function worldGraph($metric, $since) {
-		$orderBy = "order by 1";
-		$groupBy = "group by 1";
 		$notCountries = array(
 			"Diamond Princess",
 			"MS Zaandam",
@@ -139,18 +137,85 @@ class Corona extends Mcontroller {
 		}
 		$notCountries = "'".implode("', '", $notCountries)."'";
 		$notCountriesCond = "country not in ( $notCountries )";
+		$conds = "$notCountriesCond and $sinceCond";
+		$worldRows = array();
+		$fields = array(
+			"date",
+			"sum(cases) as cases",
+			"sum(deaths) as deaths",
+			"sum(recovered) as recovered",
+			"sum(vaccinated) as vaccinated",
+		);
+		$fields = implode(", ", $fields);
+		$orderBy = "order by 1";
+		$groupBy = "group by 1";
+		$sql = "select $fields from covid19 where $conds $groupBy $orderBy";
+		$baseRows = $this->Mmodel->getRows($sql);
+
+		$baseMetrics = array(
+			'cases',
+			'deaths',
+			'recovered',
+			'vaccinated',
+		);
+		if ( in_array($metric, $baseMetrics) ) {
+			$rows = array();
+			foreach ( $baseRows as $row )
+				$rows[] = array(
+					'date' => $row['date'],
+					$metric => $row[$metric],
+				);
+			$title = "World cumulative $metric $sinceTitle";
+			$this->graph($rows, $metric, $title);
+			$this->Mview->showTpl("sinceLinks.tpl", array(
+				'country' => 'World',
+				'metric' => $metric,
+				'since' => $since,
+				'sinces' => $this->sinces(),
+			));
+			Mview::print_r($_REQUEST, "_REQUEST", basename(__FILE__), __LINE__, null, false);
+			return;
+		}
 		switch ( $metric ) {
-			case 'cases':
-				$conds = "$notCountriesCond and $sinceCond";
-				$fields = "date, sum($metric) as cases";
-				$sql = "select $fields from covid19 where $conds $groupBy $orderBy";
-				$rows = $this->Mmodel->getRows($sql);
-				$title = "World cumulative cases $sinceTitle";
+			case 'yesterday':
+			case 'today':
+				$rows = array();
+				$title = "World daily cases $sinceTitle";
+				$rows = array();
+				foreach ( $baseRows as $key => $row ) {
+					if ( $key == 0 )
+						continue;
+					$rows[] = array(
+						'date' => $row['date'],
+						'cases' => $row['cases'] - $baseRows[$key-1]['cases'],
+					);
+				}
 				$this->graph($rows, 'cases', $title);
+			break;
+			case 'deathsYesterday':
+			case 'deathsToday':
+				$rows = array();
+				$title = "World daily deaths $sinceTitle";
+				$rows = array();
+				foreach ( $baseRows as $key => $row ) {
+					if ( $key == 0 )
+						continue;
+					$rows[] = array(
+						'date' => $row['date'],
+						'deaths' => $row['deaths'] - $baseRows[$key-1]['deaths'],
+					);
+				}
+				$this->graph($rows, 'deaths', $title);
 			break;
 			default:
 				Mview::print_r($_REQUEST, "_REQUEST", basename(__FILE__), __LINE__, null, false);
 		}
+		$this->Mview->showTpl("sinceLinks.tpl", array(
+			'country' => 'World',
+			'metric' => $metric,
+			'since' => $since,
+			'sinces' => $this->sinces(),
+		));
 	}
 	/*------------------------------------------------------------*/
 	public function historyGraph() {
