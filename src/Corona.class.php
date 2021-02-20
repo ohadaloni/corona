@@ -120,16 +120,52 @@ class Corona extends Mcontroller {
 			);
 		}
 		$ml = new MlineGraphs;
-		$ml->lineGraphs($lines, $title, "crHistoryuGraph", $xAxis);
+		$ml->lineGraphs($lines, $title, "crHistoryGraph", $xAxis);
+	}
+	/*------------------------------------------------------------*/
+	public function worldGraph($metric, $since) {
+		$orderBy = "order by 1";
+		$groupBy = "group by 1";
+		$notCountries = array(
+			"Diamond Princess",
+			"MS Zaandam",
+		);
+		if ( $since == 'allTime' ) {
+			$sinceCond = true;
+			$sinceTitle = "";
+		} else {
+			$sinceCond = "date >= '$since'";
+			$sinceTitle = " since $since";
+		}
+		$notCountries = "'".implode("', '", $notCountries)."'";
+		$notCountriesCond = "country not in ( $notCountries )";
+		switch ( $metric ) {
+			case 'cases':
+				$conds = "$notCountriesCond and $sinceCond";
+				$fields = "date, sum($metric) as cases";
+				$sql = "select $fields from covid19 where $conds $groupBy $orderBy";
+				$rows = $this->Mmodel->getRows($sql);
+				$title = "World cumulative cases $sinceTitle";
+				$this->graph($rows, 'cases', $title);
+			break;
+			default:
+				Mview::print_r($_REQUEST, "_REQUEST", basename(__FILE__), __LINE__, null, false);
+		}
 	}
 	/*------------------------------------------------------------*/
 	public function historyGraph() {
 		$country = @$_REQUEST['country'];
 		$metric = @$_REQUEST['metric'];
 		$since = @$_REQUEST['since'];
+		if ( ! $since )
+			$since = date("Y-m-01", time() - 91*24*3600);
 
 		if ( ! $country || ! $metric )
 			return;
+		if ( $country == 'World' ) {
+			$this->worldGraph($metric, $since);
+			return;
+		}
 
 		$cumulative = array(
 			'cases',
@@ -153,8 +189,6 @@ class Corona extends Mcontroller {
 			'R',
 		);
 
-		if ( ! $since )
-			$since = date("Y-m-01", time() - 91*24*3600);
 		$country = $this->Mmodel->str($country);
 		$metric = $this->Mmodel->str($metric);
 
@@ -301,7 +335,7 @@ class Corona extends Mcontroller {
 			$row['yRecovered'] = $this->metric($country, $yesterday, 'recovered');
 			$row['dbyRecovered'] = $this->metric($country, $dby, 'recovered');
 			$row['dbyDeaths'] = $this->metric($country, $dby, 'deaths');
-			$row['yDeaths']  = $this->metric($country, $yesterday, 'deaths');
+			$row['yDeaths'] = $this->metric($country, $yesterday, 'deaths');
 			$row['yClosed'] = $row['yRecovered'] + $row['yDeaths'];
 			$row['dbyClosed'] = $row['dbyRecovered'] + $row['dbyDeaths'];
 			$row['dbyTests'] = $this->metric($country, $dby, 'tests');
@@ -594,7 +628,7 @@ class Corona extends Mcontroller {
 			$todayDate = date("Y-m-d");
 		$todayTime = strtotime($todayDate);
 		$daySecs = 24*3600;
-		if (  $prev ) {
+		if ( $prev ) {
 			$startDate = date("Y-m-d", $todayTime - 15*$daySecs);
 			$endDate = date("Y-m-d", $todayTime - 8*$daySecs);
 		} else {
