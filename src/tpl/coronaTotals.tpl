@@ -55,9 +55,27 @@
 			target="_blank"
 		>{$totals.recovered|numberFormat:0}</a>
 	</td>
-	<td align="right">{$totals.closed|numberFormat:0}</td>
-	<td align="right">{$totals.active|numberFormat:0}</td>
-	<td align="right">{$totals.tests|numberFormat:0}</td>
+	<td align="right">
+		<a
+			href="/corona/historyGraph?country=World&metric=closed"
+			title="history graph"
+			target="_blank"
+		>{$totals.closed|numberFormat:0}</a>
+	</td>
+	<td align="right">
+		<a
+			href="/corona/historyGraph?country=World&metric=active"
+			title="history graph"
+			target="_blank"
+		>{$totals.active|numberFormat:0}</a>
+	</td>
+	<td align="right">
+		<a
+			href="/corona/historyGraph?country=World&metric=tests"
+			title="history graph"
+			target="_blank"
+		>{$totals.tests|numberFormat:0}</a>
+	</td>
 	<td align="right">
 		<a
 			href="/corona/historyGraph?country=World&metric=vaccinated"
