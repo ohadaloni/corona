@@ -227,8 +227,6 @@ class Corona extends Mcontroller {
 				$title = "World active cases $sinceTitle";
 				$rows = array();
 				foreach ( $baseRows as $key => $row ) {
-					if ( $key == 0 )
-						continue;
 					$rows[] = array(
 						'date' => $row['date'],
 						'active' => $row['cases'] - $row['recovered'] - $row['deaths'],
@@ -236,13 +234,25 @@ class Corona extends Mcontroller {
 				}
 				$this->graph($rows, 'active', $title);
 			break;
+			case 'vaccinatedYesterday':
+				$rows = array();
+				$title = "World daily vaccinations $sinceTitle";
+				$rows = array();
+				foreach ( $baseRows as $key => $row ) {
+					if ( $key == 0 )
+						continue;
+					$rows[] = array(
+						'date' => $row['date'],
+						'vaccinated' => $row['vaccinated'] - $baseRows[$key-1]['vaccinated'],
+					);
+				}
+				$this->graph($rows, 'vaccinated', $title);
+			break;
 			case 'R':
 				$rows = array();
 				$title = "World R $sinceTitle";
 				$rows = array();
 				foreach ( $baseRows as $key => $row ) {
-					if ( $key == 0 )
-						continue;
 					$rows[] = array(
 						'date' => $row['date'],
 						'R' => $this->R('World', $row['date']),
