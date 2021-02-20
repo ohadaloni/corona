@@ -151,7 +151,7 @@ class Corona extends Mcontroller {
 		$orderBy = "order by 1";
 		$groupBy = "group by 1";
 		$sql = "select $fields from covid19 where $conds $groupBy $orderBy";
-		$baseRows = $this->Mmodel->getRows($sql);
+		$baseRows = $this->Mmodel->getRows($sql, $this->ttl);
 
 		$baseMetrics = array(
 			'cases',
@@ -236,6 +236,20 @@ class Corona extends Mcontroller {
 				}
 				$this->graph($rows, 'active', $title);
 			break;
+			case 'R':
+				$rows = array();
+				$title = "World R $sinceTitle";
+				$rows = array();
+				foreach ( $baseRows as $key => $row ) {
+					if ( $key == 0 )
+						continue;
+					$rows[] = array(
+						'date' => $row['date'],
+						'R' => $this->R('World', $row['date']),
+					);
+				}
+				$this->graph($rows, 'R', $title);
+			break;
 			default:
 				Mview::print_r($_REQUEST, "_REQUEST", basename(__FILE__), __LINE__, null, false);
 		}
@@ -305,7 +319,7 @@ class Corona extends Mcontroller {
 		if ( in_array($metric, $cumulative) ) {
 			$title = "cumulative $metric in $country$sinceTitle";
 			$sql = "select date, $metric from covid19 where $conds $orderBy";
-			$rows = $this->Mmodel->getRows($sql);
+			$rows = $this->Mmodel->getRows($sql, $this->ttl);
 			$this->graph($rows, $metric, $title);
 		} else if ( in_array($metric, $dailies) ) {
 			$baseMetric =
@@ -314,7 +328,7 @@ class Corona extends Mcontroller {
 					 ( stristr($metric, 'deaths') ? 'deaths' : 'cases' );
 			$title = "daily $baseMetric in $country$sinceTitle";
 			$sql = "select date, $baseMetric from covid19 where $conds $orderBy";
-			$baseMetricRows = $this->Mmodel->getRows($sql);
+			$baseMetricRows = $this->Mmodel->getRows($sql, $this->ttl);
 			$rows = array();
 			foreach ( $baseMetricRows as $key => $row ) {
 				if ( $key > 0 )
@@ -326,7 +340,7 @@ class Corona extends Mcontroller {
 			$this->graph($rows, $baseMetric, $title);
 		} else if ( in_array($metric, $calced) ) {
 			$sql = "select * from covid19 where $conds $orderBy";
-			$dataRows = $this->Mmodel->getRows($sql);
+			$dataRows = $this->Mmodel->getRows($sql, $this->ttl);
 			if ( $metric == 'population' ) {
 				$title = "Rates/population in $country$sinceTitle";
 				$this->ammendRows($dataRows);
@@ -394,7 +408,6 @@ class Corona extends Mcontroller {
 
 		$sql = "select * from covid19 where $conds";
 		$rows = $this->Mmodel->getRows($sql, $this->ttl);
-		/*	$rows = $this->Mmodel->getRows($sql);	*/
 		if ( ! $rows ) {
 			return(null);
 		}
