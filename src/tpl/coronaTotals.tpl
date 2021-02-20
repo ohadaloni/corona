@@ -3,7 +3,13 @@
 	<td><img src="/images/flags/world.png" /></td>
 	<td>World</td>
 	<td style="background-color: #ddd;" width="20px"></td>
-	<td align="right">{$totals.cases|numberFormat:0}</td>
+	<td align="right">
+		<a
+			href="/corona/historyGraph?country=World&metric=cases"
+			title="history graph"
+			target="_blank"
+		>{$totals.cases|numberFormat:0}</a>
+	</td>
 	<td align="right">{$totals.yesterday|numberFormat:0}</td>
 	<td align="right">{$totals.R|numberFormat:2:'%'}</td>
 	<td align="right">{$totals.today|numberFormat:0}</td>
