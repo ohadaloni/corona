@@ -144,6 +144,7 @@ class Corona extends Mcontroller {
 			"sum(cases) as cases",
 			"sum(deaths) as deaths",
 			"sum(recovered) as recovered",
+			"sum(tests) as tests",
 			"sum(vaccinated) as vaccinated",
 		);
 		$fields = implode(", ", $fields);
@@ -156,6 +157,7 @@ class Corona extends Mcontroller {
 			'cases',
 			'deaths',
 			'recovered',
+			'tests',
 			'vaccinated',
 		);
 		if ( in_array($metric, $baseMetrics) ) {
@@ -173,7 +175,6 @@ class Corona extends Mcontroller {
 				'since' => $since,
 				'sinces' => $this->sinces(),
 			));
-			Mview::print_r($_REQUEST, "_REQUEST", basename(__FILE__), __LINE__, null, false);
 			return;
 		}
 		switch ( $metric ) {
@@ -206,6 +207,34 @@ class Corona extends Mcontroller {
 					);
 				}
 				$this->graph($rows, 'deaths', $title);
+			break;
+			case 'closed':
+				$rows = array();
+				$title = "World closed cases $sinceTitle";
+				$rows = array();
+				foreach ( $baseRows as $key => $row ) {
+					if ( $key == 0 )
+						continue;
+					$rows[] = array(
+						'date' => $row['date'],
+						'closed' => $row['recovered'] + $row['deaths'],
+					);
+				}
+				$this->graph($rows, 'closed', $title);
+			break;
+			case 'active':
+				$rows = array();
+				$title = "World active cases $sinceTitle";
+				$rows = array();
+				foreach ( $baseRows as $key => $row ) {
+					if ( $key == 0 )
+						continue;
+					$rows[] = array(
+						'date' => $row['date'],
+						'active' => $row['cases'] - $row['recovered'] - $row['deaths'],
+					);
+				}
+				$this->graph($rows, 'active', $title);
 			break;
 			default:
 				Mview::print_r($_REQUEST, "_REQUEST", basename(__FILE__), __LINE__, null, false);
