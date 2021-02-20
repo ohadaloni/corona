@@ -17,7 +17,13 @@
 			target="_blank"
 		>{$totals.yesterday|numberFormat:0}</a>
 	</td>
-	<td align="right">{$totals.R|numberFormat:2:'%'}</td>
+	<td align="right">
+		<a
+			href="/corona/historyGraph?country=World&metric=R"
+			title="history graph"
+			target="_blank"
+		>{$totals.R|numberFormat:2:'%'}</a>
+	</td>
 	<td align="right">
 		<a
 			href="/corona/historyGraph?country=World&metric=today"
