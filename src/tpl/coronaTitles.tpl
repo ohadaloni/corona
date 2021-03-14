@@ -57,6 +57,18 @@
 		{/if}
 	</td>
 	<td>
+		<a title="R tomorrow">R+</a>
+		{if $links}
+			{if $by == 'Rplus'}
+				<img src="/images/circles/green.png">
+			{else}
+				<a href="/?by=Rplus"><img src="/images/arrowDown.png"></a>
+			{/if}
+		{elseif $by == 'Rplus'}
+			<img src="/images/circles/fade/green.png">
+		{/if}
+	</td>
+	<td>
 		today
 		{if $links}
 			{if $by == 'today'}
@@ -175,6 +187,18 @@
 				<a href="/?by=vaccinatedYesterday"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'vaccinatedYesterday'}
+			<img src="/images/circles/fade/green.png">
+		{/if}
+	</td>
+	<td>
+		<a title="Vaccinated Today">vt</a>
+		{if $links}
+			{if $by == 'vaccinatedToday'}
+				<img src="/images/circles/green.png">
+			{else}
+				<a href="/?by=vaccinatedToday"><img src="/images/arrowDown.png"></a>
+			{/if}
+		{elseif $by == 'vaccinatedToday'}
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>
