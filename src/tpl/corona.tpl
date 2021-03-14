@@ -48,6 +48,13 @@
 			</td>
 			<td align="right">
 				<a
+					href="/corona/historyGraph?country={$row.country}&metric=Rplus"
+					title="history graph"
+					target="_blank"
+				>{if $row.Rplus}{$row.Rplus|numberFormat:2:'%'}{else}---{/if}</a>
+			</td>
+			<td align="right">
+				<a
 					href="/corona/historyGraph?country={$row.country}&metric=today"
 					title="history graph"
 					target="_blank"
@@ -117,6 +124,13 @@
 					title="history graph"
 					target="_blank"
 				>{if $row.vaccinatedYesterday}{$row.vaccinatedYesterday|numberFormat:0}{elseif $row.vaccinated}---{/if}</a>
+			</td>
+			<td align="right">
+				<a
+					href="/corona/historyGraph?country={$row.country}&metric=vaccinatedToday"
+					title="history graph"
+					target="_blank"
+				>{if $row.vaccinatedToday}{$row.vaccinatedToday|numberFormat:0}{elseif $row.vaccinated}---{/if}</a>
 			</td>
 			<td style="background-color: #ddd;" width="20px"> </td>
 			<td align="right">{$row.casesDeathRate|numberFormat:3:'%'}</td>
