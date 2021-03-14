@@ -809,7 +809,7 @@ class Corona extends Mcontroller {
 				'total' => $total,
 				'weekAverage' => $weekAverage,
 			);
-			Mview::print_r($prData, "prData", basename(__FILE__), __LINE__, null, false);
+			/*	Mview::print_r($prData, "prData", basename(__FILE__), __LINE__, null, false);	*/
 		}
 		return($weekAverage);
 	}
