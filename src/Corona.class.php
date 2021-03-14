@@ -62,6 +62,7 @@ class Corona extends Mcontroller {
 			'dbyDeaths' => Mutils::arraySum($rows, "dbyDeaths"),
 			'deathsYesterday' => Mutils::arraySum($rows, "deathsYesterday"),
 			'vaccinated' => Mutils::arraySum($rows, "vaccinated"),
+			'vaccinatedToday' => Mutils::arraySum($rows, "vaccinatedToday"),
 			'vaccinatedYesterday' => Mutils::arraySum($rows, "vaccinatedYesterday"),
 			'deathsToday' => Mutils::arraySum($rows, "deathsToday"),
 			'recovered' => Mutils::arraySum($rows, "recovered"),
@@ -234,6 +235,7 @@ class Corona extends Mcontroller {
 				}
 				$this->graph($rows, 'active', $title);
 			break;
+			case 'vaccinatedToday':
 			case 'vaccinatedYesterday':
 				$rows = array();
 				$title = "World daily vaccinations $sinceTitle";
@@ -249,6 +251,7 @@ class Corona extends Mcontroller {
 				$this->graph($rows, 'vaccinated', $title);
 			break;
 			case 'R':
+			case 'Rplus':
 				$rows = array();
 				$title = "World R $sinceTitle";
 				$rows = array();
@@ -297,6 +300,7 @@ class Corona extends Mcontroller {
 			'yesterday',
 			'deathsToday',
 			'deathsYesterday',
+			'vaccinatedToday',
 			'vaccinatedYesterday',
 			'vaccinationLastWeekAverage',
 		);
@@ -305,6 +309,7 @@ class Corona extends Mcontroller {
 			'population',
 			'closed',
 			'R',
+			'Rplus',
 		);
 
 		$country = $this->Mmodel->str($country);
@@ -332,9 +337,11 @@ class Corona extends Mcontroller {
 			$rows = $this->Mmodel->getRows($sql, $this->ttl);
 			$this->graph($rows, $metric, $title);
 		} else if ( in_array($metric, $dailies) ) {
-			$baseMetric =
-				( $metric == 'vaccinatedYesterday' || $metric == 'vaccinationLastWeekAverage' ) ?
-					"vaccinated" :
+			$baseMetric = (
+				$metric == 'vaccinatedToday'
+				|| $metric == 'vaccinatedYesterday'
+				|| $metric == 'vaccinationLastWeekAverage'
+				) ?  "vaccinated" :
 					 ( stristr($metric, 'deaths') ? 'deaths' : 'cases' );
 			$title = "daily $baseMetric in $country$sinceTitle";
 			$sql = "select date, $baseMetric from covid19 where $conds $orderBy";
@@ -358,7 +365,8 @@ class Corona extends Mcontroller {
 				$this->ratesGraph($dataRows, $title);
 			} else {
 				$rows = $this->calcRows($dataRows, $metric);
-				$title = "$metric in $country$sinceTitle";
+				$metricName = $metric == 'Rplus' ? 'R' : $metric;
+				$title = "$metricName in $country$sinceTitle";
 				$this->graph($rows, $metric, $title);
 			}
 		} else {
@@ -387,8 +395,8 @@ class Corona extends Mcontroller {
 					$dataRows[$key]['closed'] = $closed;
 				}
 			}
-			if ( $metric == 'R' ) {
-					$dataRows[$key]['R'] = $this->R($dataRow['country'], $dataRow['date']);
+			if ( $metric == 'R' || $metric == 'Rplus') {
+				$dataRows[$key][$metric] = $this->R($dataRow['country'], $dataRow['date']);
 			}
 		}
 		$rows = array();
@@ -467,10 +475,12 @@ class Corona extends Mcontroller {
 				$row['active'] = $row['cases'] - $row['closed'];
 			}
 			$row['deathsYesterday'] = $row['yDeaths']- $row['dbyDeaths'];
+			$row['vaccinatedToday'] = $row['vaccinated'] - $row['yVaccinated'];
 			$row['vaccinatedYesterday'] = $row['yVaccinated'] - $row['dbyVaccinated'];
 			$row['deathsToday'] = $row['deaths'] - $row['yDeaths'];
 		}
 		$row['R'] = $this->R($country);
+		$row['Rplus'] = $this->Rplus($country);
 
 		if ( $row['recovered'] ) {
 			$row['closed'] = $row['recovered'] + $row['deaths'];
@@ -606,6 +616,10 @@ class Corona extends Mcontroller {
 		return($this->cmp($a['R'], $b['R']));
 	}
 	/*------------------------------*/
+	private function byRplus($b, $a) {
+		return($this->cmp($a['Rplus'], $b['Rplus']));
+	}
+	/*------------------------------*/
 	private function byToday($b, $a) {
 		return($this->cmp($a['today'], $b['today']));
 	}
@@ -620,6 +634,10 @@ class Corona extends Mcontroller {
 	/*------------------------------*/
 	private function byVaccinated($b, $a) {
 		return($this->cmp($a['vaccinated'], $b['vaccinated']));
+	}
+	/*------------------------------*/
+	private function byVaccinatedToday($b, $a) {
+		return($this->cmp($a['vaccinatedToday'], $b['vaccinatedToday']));
 	}
 	/*------------------------------*/
 	private function byVaccinatedYesterday($b, $a) {
@@ -743,14 +761,25 @@ class Corona extends Mcontroller {
 	private function weekAverage($country, $prev = false, $what = 'cases', $todayDate = null) {
 		if ( ! $todayDate )
 			$todayDate = date("Y-m-d");
-		$todayTime = strtotime($todayDate);
 		$daySecs = 24*3600;
+		$numDays = 7;
 		if ( $prev ) {
-			$startDate = date("Y-m-d", $todayTime - 15*$daySecs);
+			$todayTime = strtotime($todayDate);
+			$startDate = date("Y-m-d", $todayTime - 14*$daySecs);
 			$endDate = date("Y-m-d", $todayTime - 8*$daySecs);
 		} else {
-			$startDate = date("Y-m-d", $todayTime - 8*$daySecs);
-			$endDate = date("Y-m-d", $todayTime - 1*$daySecs);
+			// for Rplus - todayDate == tomorrow - take the last 6 days, not incl today.
+			$time = time();
+			$tomorrow = date("Y-m-d", $time + 24*3600);
+			if ( $todayDate == $tomorrow ) {
+				$startDate = date("Y-m-d", $time - 6*$daySecs);
+				$endDate = date("Y-m-d", $time - 1*$daySecs);
+				$numDays = 6;
+			} else {
+				$todayTime = strtotime($todayDate);
+				$startDate = date("Y-m-d", $todayTime - 7*$daySecs);
+				$endDate = date("Y-m-d", $todayTime - 1*$daySecs);
+			}
 		}
 		if ( $country == 'World' ) {
 			$startSql = "select sum($what) from covid19 where date = '$startDate'";
@@ -763,8 +792,36 @@ class Corona extends Mcontroller {
 		$startTotal = $this->Mmodel->getInt($startSql, $this->ttl);
 		$endTotal = $this->Mmodel->getInt($endSql, $this->ttl);
 		$total = $endTotal - $startTotal ;
-		$weekAverage = $total / 7 ;
+		$weekAverage = $total / $numDays ;
+		if ( $country == 'Israel' ) {
+			$prData = array(
+				'country' => $country,
+				'prev' => $prev,
+				'what' => $what,
+				'todayDate' => $todayDate,
+				'startDate' => $startDate,
+				'endDate' => $endDate,
+				'numDays' => $numDays,
+				'startSql' => $startSql,
+				'endSql' => $endSql,
+				'startTotal' => $startTotal,
+				'endTotal' => $endTotal,
+				'total' => $total,
+				'weekAverage' => $weekAverage,
+			);
+			Mview::print_r($prData, "prData", basename(__FILE__), __LINE__, null, false);
+		}
 		return($weekAverage);
+	}
+	/*------------------------------------------------------------*/
+	private function Rplus($country) {
+		$tomorrow = date("Y-m-d", time() + 24*3600);
+		$prevWeekAverage = $this->weekAverage($country, true, 'cases', $tomorrow);
+		$thisWeekAverage = $this->weekAverage($country, false, 'cases', $tomorrow);
+		if ( ! $prevWeekAverage )
+			return(null);
+		$Rplus = $thisWeekAverage / $prevWeekAverage ;
+		return($Rplus);
 	}
 	/*------------------------------------------------------------*/
 	private function R($country, $todayDate = null) {
