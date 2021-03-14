@@ -26,6 +26,13 @@
 	</td>
 	<td align="right">
 		<a
+			href="/corona/historyGraph?country=World&metric=Rplus"
+			title="history graph"
+			target="_blank"
+		>{$totals.Rplus|numberFormat:2:'%'}</a>
+	</td>
+	<td align="right">
+		<a
 			href="/corona/historyGraph?country=World&metric=today"
 			title="history graph"
 			target="_blank"
@@ -95,6 +102,13 @@
 			title="history graph"
 			target="_blank"
 		>{$totals.vaccinatedYesterday|numberFormat:0}</a>
+	</td>
+	<td align="right">
+		<a
+			href="/corona/historyGraph?country=World&metric=vaccinatedToday"
+			title="history graph"
+			target="_blank"
+		>{$totals.vaccinatedToday|numberFormat:0}</a>
 	</td>
 	<td style="background-color: #ddd;" width="20px"> </td>
 	<td align="right">{$totals.casesDeathRate|numberFormat:3:'%'}</td>
