@@ -14,7 +14,9 @@
 		{else}
 			<tr class="coronaRow">
 		{/if}
-			<td>{$No}</td>
+			<td>
+				<a name="{$row.country}" style="color:black;">{$No}</a>
+			</td>
 			<td> {if $row.flag}<img src="/images/flags/{$row.flag}" />{/if}</td>
 			<td>
 				{if $row.country == 'Israel' || $row.country == 'Philippines' || $row.country == $myCountry}
