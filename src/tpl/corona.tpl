@@ -148,7 +148,8 @@
 			</td>
 
 			<td align="right">{$row.casesRate|numberFormat:3:'%'}</td>
-			<td align="right">{$row.populationDeathRate|numberFormat:4:'%'}</td>
+			<td align="right">{$row.populationDeathRate|numberFormat:5:'%'}</td>
+			<td align="right">{$row.populationDeathRateYesterday|numberFormat:5:'%'}</td>
 			<td align="right">{$row.activeRate|numberFormat:3:'%'}</td>
 			<td align="right">{$row.vaccinatedRate|numberFormat:3:'%'}</td>
 			<td align="right">{$row.vaccinationLastWeekAverage|numberFormat:0}</td>
