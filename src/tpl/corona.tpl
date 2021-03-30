@@ -108,13 +108,6 @@
 			</td>
 			<td align="right">
 				<a
-					href="/corona/historyGraph?country={$row.country}&metric=tests"
-					title="history graph"
-					target="_blank"
-				>{$row.tests|numberFormat:0}</a>
-			</td>
-			<td align="right">
-				<a
 					href="/corona/historyGraph?country={$row.country}&metric=vaccinated"
 					title="history graph"
 					target="_blank"
