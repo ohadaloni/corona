@@ -66,7 +66,6 @@ class Corona extends Mcontroller {
 			'vaccinatedYesterday' => Mutils::arraySum($rows, "vaccinatedYesterday"),
 			'deathsToday' => Mutils::arraySum($rows, "deathsToday"),
 			'recovered' => Mutils::arraySum($rows, "recovered"),
-			'tests' => Mutils::arraySum($rows, "tests"),
 		);
 		$this->ammendRow($totals);
 		$this->Mview->showTpl("corona.tpl", array(
@@ -146,7 +145,6 @@ class Corona extends Mcontroller {
 			"sum(cases) as cases",
 			"sum(deaths) as deaths",
 			"sum(recovered) as recovered",
-			"sum(tests) as tests",
 			"sum(vaccinated) as vaccinated",
 		);
 		$fields = implode(", ", $fields);
@@ -159,7 +157,6 @@ class Corona extends Mcontroller {
 			'cases',
 			'deaths',
 			'recovered',
-			'tests',
 			'vaccinated',
 		);
 		if ( in_array($metric, $baseMetrics) ) {
@@ -293,7 +290,6 @@ class Corona extends Mcontroller {
 			'cases',
 			'deaths',
 			'recovered',
-			'tests',
 			'vaccinated',
 		);
 		$dailies = array(
@@ -464,9 +460,7 @@ class Corona extends Mcontroller {
 			$row['yDeaths'] = $this->metric($country, $yesterday, 'deaths');
 			$row['yClosed'] = $row['yRecovered'] + $row['yDeaths'];
 			$row['dbyClosed'] = $row['dbyRecovered'] + $row['dbyDeaths'];
-			$row['dbyTests'] = $this->metric($country, $dby, 'tests');
 			$row['dbyVaccinated'] = $this->metric($country, $dby, 'vaccinated');
-			$row['yTests'] = $this->metric($country, $yesterday, 'tests');
 			$row['yVaccinated'] = $this->metric($country, $yesterday, 'vaccinated');
 
 			$row['yesterday'] = $row['yCases'] - $row['dbyCases'];
@@ -698,10 +692,6 @@ class Corona extends Mcontroller {
 	/*------------------------------*/
 	private function byClosedDeathRate($b, $a) {
 		return($this->cmp($a['closedDeathRate'], $b['closedDeathRate']));
-	}
-	/*------------------------------*/
-	private function byTests($b, $a) {
-		return($this->cmp($a['tests'], $b['tests']));
 	}
 	/*------------------------------*/
 	private function byPopulationDeathRate($b, $a) {
