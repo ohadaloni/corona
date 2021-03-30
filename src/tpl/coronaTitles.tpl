@@ -155,18 +155,6 @@
 		{/if}
 	</td>
 	<td>
-		tests
-		{if $links}
-			{if $by == 'tests'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=tests"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'tests'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	<td>
 		<a title="Vaccinated - sigle dose count">v</a>
 		{if $links}
 			{if $by == 'vaccinated'}
