@@ -64,11 +64,6 @@
 		<td>cases - closed</td>
 	</tr>
 	<tr class="coronaRow">
-		<td>tests</td>
-		<td>tests performed</td>
-		<td></td>
-	</tr>
-	<tr class="coronaRow">
 		<td>Vaccinated</td>
 		<td>Single dose as per woid</td>
 		<td></td>
