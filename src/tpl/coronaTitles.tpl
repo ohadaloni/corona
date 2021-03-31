@@ -253,18 +253,6 @@
 		{/if}
 	</td>
 	<td>
-		<a title="Population Death Rate Yesterday">DRY</a>
-		{if $links}
-			{if $by == 'populationDeathRateYesterday'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=populationDeathRateYesterday"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'populationDeathRateYesterday'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	<td>
 		<a title="Active Cases Rate">AR</a>
 		{if $links}
 			{if $by == 'activeRate'}
