@@ -98,7 +98,6 @@ class Corona extends Mcontroller {
 			$lines[] = array(
 				'cases' => $row['casesRate'],
 				'deaths' => $row['populationDeathRate'],
-				'deathsYesterday' => $row['populationDeathRateYesterday'],
 				'active' => $row['activeRate'],
 				'vaccinated' => $row['vaccinatedRate'],
 			);
@@ -499,8 +498,6 @@ class Corona extends Mcontroller {
 				@$row['active'] ? ( $row['active'] / $population ) * 100 : 0 ;
 			$row['populationDeathRate'] =
 				( $row['deaths'] / $population ) * 100 ;
-			$row['populationDeathRateYesterday'] =
-				( $row['deathsYesterday'] / $population ) * 100 ;
 			$row['vaccinatedRate'] = 
 				( $row['vaccinated'] / $population ) * 100 / 2 ; // rate shows 1/2, 2 doses per person
 			$row['vaccinationLastWeekAverage'] = $this->weekAverage($country, false, 'vaccinated');
@@ -513,7 +510,6 @@ class Corona extends Mcontroller {
 		} else {
 			$row['population'] = 0 ;
 			$row['populationDeathRate'] = 0;
-			$row['populationDeathRateYesterday'] = 0;
 			$row['casesRate'] = 0;
 			$row['EcasesRate'] = 0;
 			$row['activeRate'] = 0;
@@ -696,10 +692,6 @@ class Corona extends Mcontroller {
 	/*------------------------------*/
 	private function byPopulationDeathRate($b, $a) {
 		return($this->cmp($a['populationDeathRate'], $b['populationDeathRate']));
-	}
-	/*------------------------------*/
-	private function byPopulationDeathRateYesterday($b, $a) {
-		return($this->cmp($a['populationDeathRateYesterday'], $b['populationDeathRateYesterday']));
 	}
 	/*------------------------------------------------------------*/
 	private function population($country) {
