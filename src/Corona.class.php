@@ -28,10 +28,10 @@ class Corona extends Mcontroller {
 	/*------------------------------*/
 	protected function after() {
 		$this->Mview->runningTime($this->startTime);
-		$a = '<br /><br /><a name="viewSource"><h4>PHP Source Code</h4></a><br />';
-		$this->Mview->pushOutput($a);
-		$src = highlight_file(__FILE__, true);
-		$this->Mview->pushOutput($src);
+		/*	$a = '<br /><br /><a name="viewSource"><h4>PHP Source Code</h4></a><br />';	*/
+		/*	$this->Mview->pushOutput($a);	*/
+		/*	$src = highlight_file(__FILE__, true);	*/
+		/*	$this->Mview->pushOutput($src);	*/
 		$this->Mview->showTpl("footer.tpl");
 		$this->Mview->showTpl("foot.tpl");
 	}
@@ -810,7 +810,8 @@ class Corona extends Mcontroller {
 		$thisWeekAverage = $this->weekAverage($country, false, 'cases', $tomorrow);
 		if ( ! $prevWeekAverage )
 			return(null);
-		$Rplus = $thisWeekAverage / $prevWeekAverage ;
+		$Rplus2 = $thisWeekAverage / $prevWeekAverage ;
+		$Rplus = pow($Rplus2, 4/7.0);
 		return($Rplus);
 	}
 	/*------------------------------------------------------------*/
@@ -819,7 +820,8 @@ class Corona extends Mcontroller {
 		$thisWeekAverage = $this->weekAverage($country, false, 'cases', $todayDate);
 		if ( ! $prevWeekAverage )
 			return(null);
-		$R = $thisWeekAverage / $prevWeekAverage ;
+		$R2 = $thisWeekAverage / $prevWeekAverage ;
+		$R = pow($R2, 4/7.0);
 		return($R);
 	}
 	/*------------------------------------------------------------*/
