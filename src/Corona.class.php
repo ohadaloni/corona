@@ -810,8 +810,8 @@ class Corona extends Mcontroller {
 		$thisWeekAverage = $this->weekAverage($country, false, 'cases', $tomorrow);
 		if ( ! $prevWeekAverage )
 			return(null);
-		$Rplus2 = $thisWeekAverage / $prevWeekAverage ;
-		$Rplus = pow($Rplus2, 4/7.0);
+		$Rplus = $thisWeekAverage / $prevWeekAverage ;
+		$Rplus = pow($Rplus, 4/7.0);
 		return($Rplus);
 	}
 	/*------------------------------------------------------------*/
@@ -820,8 +820,8 @@ class Corona extends Mcontroller {
 		$thisWeekAverage = $this->weekAverage($country, false, 'cases', $todayDate);
 		if ( ! $prevWeekAverage )
 			return(null);
-		$R2 = $thisWeekAverage / $prevWeekAverage ;
-		$R = pow($R2, 4/7.0);
+		$R = $thisWeekAverage / $prevWeekAverage ;
+		$R = pow($R, 4/7.0);
 		return($R);
 	}
 	/*------------------------------------------------------------*/
