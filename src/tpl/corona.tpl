@@ -19,12 +19,8 @@
 			</td>
 			<td> {if $row.flag}<img src="/images/flags/{$row.flag}" />{/if}</td>
 			<td>
-				{if $row.country == 'Israel' || $row.country == 'Philippines' || $row.country == $myCountry}
-					<span style="color: blue">{$row.country}</span>
-				{else}
-					<a title="{$row.country}" style="text-decoration: none; color: black;">{$row.country|truncate:12}</a>
-					<a href="/corona/myCountry?country={$row.country}&by={$by}" title="My Country"><span style="color: blue">*</span></a>
-				{/if}
+				<a target="news" title="{$row.country} (click for news)" style="text-decoration: none; color: black;" href="https://google.com/search?q={$row.country} corona news">{$row.country|truncate:12}</a>
+				<a href="/corona/myCountry?country={$row.country}&by={$by}" title="My Country"><span style="color: blue">*</span></a>
 			</td>
 			<td style="background-color: #ddd;" width="20px"> </td>
 			<td align="right">
