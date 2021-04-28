@@ -1,6 +1,6 @@
 <tr style="background-color: #ddd">
 	<td>
-		<a href="#viewSource" title="View PHP Source Code">#</a>
+		<a target="viewSource" href="/corona/viewSource" title="View PHP Source Code">#</a>
 	</td>
 	<td>
 	</td>
