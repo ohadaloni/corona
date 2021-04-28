@@ -28,10 +28,6 @@ class Corona extends Mcontroller {
 	/*------------------------------*/
 	protected function after() {
 		$this->Mview->runningTime($this->startTime);
-		/*	$a = '<br /><br /><a name="viewSource"><h4>PHP Source Code</h4></a><br />';	*/
-		/*	$this->Mview->pushOutput($a);	*/
-		/*	$src = highlight_file(__FILE__, true);	*/
-		/*	$this->Mview->pushOutput($src);	*/
 		$this->Mview->showTpl("footer.tpl");
 		$this->Mview->showTpl("foot.tpl");
 	}
@@ -39,6 +35,11 @@ class Corona extends Mcontroller {
 	/*------------------------------------------------------------*/
 	public function index() {
 		$this->showBy();
+	}
+	/*------------------------------------------------------------*/
+	public function viewSource() {
+		$src = highlight_file(__FILE__, true);
+		$this->Mview->pushOutput($src);
 	}
 	/*------------------------------------------------------------*/
 	public function showBy() {
@@ -85,6 +86,7 @@ class Corona extends Mcontroller {
 		$this->Mview->setCookie("myCountry", $country);
 		$this->index();
 	}
+	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
 	private function ratesGraph($rows, $title) {
 		$xAxis = array();
