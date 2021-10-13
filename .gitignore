@@ -1,0 +1,8 @@
+tmp
+logs
+src/smarty
+// Wed Oct 13 10:27:04 IDT 2021
+// backups/db.sql is the old pre git split
+backups/db.sql
+// db git split
+db
