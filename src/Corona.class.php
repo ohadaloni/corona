@@ -728,25 +728,19 @@ class Corona extends Mcontroller {
 	}
 	/*------------------------------------------------------------*/
 	private function sinces() {
+		$startDate = "2020-01-01";
+		$today = date("Y-m-d");
+		$interval = 2; // months
+		$daySeconds = 24*3600;
+		$monthSeconds = 30 * $daySeconds;
 
-		$sinces = array(
-			"2020-01-01",
-			"2020-02-01",
-			"2020-03-01",
-			"2020-04-01",
-			"2020-05-01",
-			"2020-06-01",
-			"2020-07-01",
-			"2020-08-01",
-			"2020-09-01",
-			"2020-10-01",
-			"2020-11-01",
-			"2020-12-01",
-		);
-		$thisMonth = date("m");
-		for ( $month = 1 ; $month <= $thisMonth ; $month++ )
-			$sinces[] = sprintf("2021-%02d-01", $month);
+		$sinces = array();
+		for ( $day = $startDate ;
+			strcmp($today, $day) > 0 ;
+				$day = date("Y-m-01", strtotime($day) + $interval * $monthSeconds + 7 * $daySeconds))
+			$sinces[] = $day;
 		$sinces[] = "allTime";
+		Mview::print_r($sinces, "sinces", basename(__FILE__), __LINE__, null, false);
 		return($sinces);
 	}
 	/*------------------------------------------------------------*/
