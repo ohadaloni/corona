@@ -740,7 +740,6 @@ class Corona extends Mcontroller {
 				$day = date("Y-m-01", strtotime($day) + $interval * $monthSeconds + 7 * $daySeconds))
 			$sinces[] = $day;
 		$sinces[] = "allTime";
-		Mview::print_r($sinces, "sinces", basename(__FILE__), __LINE__, null, false);
 		return($sinces);
 	}
 	/*------------------------------------------------------------*/
