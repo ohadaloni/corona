@@ -401,7 +401,7 @@ class Corona extends Mcontroller {
 		foreach ( $dataRows as $dataRow )
 			$rows[] = array(
 				'date' => $dataRow['date'],
-				$metric => $dataRow[$metric],
+				$metric => @$dataRow[$metric],
 			);
 		return($rows);
 	}
