@@ -5,8 +5,6 @@
 set V=/var/www/vhosts
 set TAS=$V/tas.theora.com
 set corona=$V/corona.theora.com
-set ss=/home/ohad/source/scripts
-set path=( $TAS/scripts $ss $path )
 
 source $TAS/conf/dbCredentials.env
 set loginArgs=(  -u$M_USER -p$M_PASSWORD )
