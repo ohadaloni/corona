@@ -82,6 +82,7 @@
 			target="_blank"
 		>{$totals.active|numberFormat:0}</a>
 	</td>
+	<td style="background-color: #ddd;" width="20px"> </td>
 	<td align="right">{$totals.casesDeathRate|numberFormat:3:'%'}</td>
 	<td align="right">{$totals.closedDeathRate|numberFormat:3:'%'}</td>
 	<td style="background-color: #ddd;" width="20px"> </td>
