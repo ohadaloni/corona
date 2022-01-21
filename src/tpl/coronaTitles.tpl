@@ -154,42 +154,6 @@
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>
-	<td>
-		<a title="Vaccinated - sigle dose count">v</a>
-		{if $links}
-			{if $by == 'vaccinated'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=vaccinated"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'vaccinated'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	<td>
-		<a title="Vaccinated Yesterday">vy</a>
-		{if $links}
-			{if $by == 'vaccinatedYesterday'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=vaccinatedYesterday"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'vaccinatedYesterday'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	<td>
-		<a title="Vaccinated Today">vt</a>
-		{if $links}
-			{if $by == 'vaccinatedToday'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=vaccinatedToday"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'vaccinatedToday'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
 	<td style="background-color: #ddd;" width="20px"> </td>
 	<td>
 		<a title="Death Rate per Cases (%)">d%</a>
@@ -261,42 +225,6 @@
 				<a href="/?by=activeRate"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'activeRate'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	<td>
-		<a title="Vaccinated Rate">VR</a>
-		{if $links}
-			{if $by == 'vaccinatedRate'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=vaccinatedRate"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'vaccinatedRate'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	<td>
-		<a title="Vaccinations Last Week Daily Average">VLWA</a>
-		{if $links}
-			{if $by == 'vaccinationLastWeekAverage'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=vaccinationLastWeekAverage"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'vaccinationLastWeekAverage'}
-			<img src="/images/circles/fade/green.png">
-		{/if}
-	</td>
-	<td>
-		<a title="Vaccination Days Left">VDL</a>
-		{if $links}
-			{if $by == 'vaccinationDaysLeft'}
-				<img src="/images/circles/green.png">
-			{else}
-				<a href="/?by=vaccinationDaysLeft"><img src="/images/arrowDown.png"></a>
-			{/if}
-		{elseif $by == 'vaccinationDaysLeft'}
 			<img src="/images/circles/fade/green.png">
 		{/if}
 	</td>

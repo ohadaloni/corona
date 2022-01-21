@@ -82,28 +82,6 @@
 			target="_blank"
 		>{$totals.active|numberFormat:0}</a>
 	</td>
-	<td align="right">
-		<a
-			href="/corona/historyGraph?country=World&metric=vaccinated"
-			title="history graph"
-			target="_blank"
-		>{$totals.vaccinated|numberFormat:0}</a>
-	</td>
-	<td align="right">
-		<a
-			href="/corona/historyGraph?country=World&metric=vaccinatedYesterday"
-			title="history graph"
-			target="_blank"
-		>{$totals.vaccinatedYesterday|numberFormat:0}</a>
-	</td>
-	<td align="right">
-		<a
-			href="/corona/historyGraph?country=World&metric=vaccinatedToday"
-			title="history graph"
-			target="_blank"
-		>{$totals.vaccinatedToday|numberFormat:0}</a>
-	</td>
-	<td style="background-color: #ddd;" width="20px"> </td>
 	<td align="right">{$totals.casesDeathRate|numberFormat:3:'%'}</td>
 	<td align="right">{$totals.closedDeathRate|numberFormat:3:'%'}</td>
 	<td style="background-color: #ddd;" width="20px"> </td>
@@ -111,7 +89,4 @@
 	<td align="right">{$totals.casesRate|numberFormat:3:'%'}</td>
 	<td align="right">{$totals.populationDeathRate|numberFormat:5:'%'}</td>
 	<td align="right">{$totals.activeRate|numberFormat:3:'%'}</td>
-	<td align="right">{$totals.vaccinatedRate|numberFormat:1:'%'}</td>
-	<td align="right">{$totals.vaccinationLastWeekAverage|numberFormat:0}</td>
-	<td align="right">{$totals.vaccinationDaysLeft|numberFormat:0}</td>
 </tr>

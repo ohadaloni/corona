@@ -64,11 +64,6 @@
 		<td>cases - closed</td>
 	</tr>
 	<tr class="coronaRow">
-		<td>Vaccinated</td>
-		<td>Single dose as per woid</td>
-		<td></td>
-	</tr>
-	<tr class="coronaRow">
 		<td>death%</td>
 		<td>percentage of deaths/cases.</td>
 		<td>
@@ -107,23 +102,5 @@
 		<td>AR</td>
 		<td>Active Rate - percentage of active/population</td>
 		<td>This indicates the load on the health care system</td>
-	</tr>
-	<tr class="coronaRow">
-		<td>vaccinatedRate</td>
-		<td>percentage of vaccinated/population</td>
-		<td></td>
-	</tr>
-	<tr class="coronaRow">
-		<td>VLWA</td>
-		<td>Vaccinations Last Week Daily Average</td>
-		<td></td>
-	</tr>
-	<tr class="coronaRow">
-		<td>vdl</td>
-		<td>Vaccination Days Left</td>
-		<td>
-			Days left to vaccinate the entire population
-			according to Last Week Daily Average
-		</td>
 	</tr>
 <table>

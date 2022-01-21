@@ -102,27 +102,6 @@
 					target="_blank"
 				>{$row.active|numberFormat:0}</a>
 			</td>
-			<td align="right">
-				<a
-					href="/corona/historyGraph?country={$row.country}&metric=vaccinated"
-					title="history graph"
-					target="_blank"
-				>{$row.vaccinated|numberFormat:0}</a>
-			</td>
-			<td align="right">
-				<a
-					href="/corona/historyGraph?country={$row.country}&metric=vaccinatedYesterday"
-					title="history graph"
-					target="_blank"
-				>{if $row.vaccinatedYesterday}{$row.vaccinatedYesterday|numberFormat:0}{elseif $row.vaccinated}---{/if}</a>
-			</td>
-			<td align="right">
-				<a
-					href="/corona/historyGraph?country={$row.country}&metric=vaccinatedToday"
-					title="history graph"
-					target="_blank"
-				>{if $row.vaccinatedToday}{$row.vaccinatedToday|numberFormat:0}{elseif $row.vaccinated}---{/if}</a>
-			</td>
 			<td style="background-color: #ddd;" width="20px"> </td>
 			<td align="right">{$row.casesDeathRate|numberFormat:3:'%'}</td>
 			<td align="right">{$row.closedDeathRate|numberFormat:3:'%'}</td>
@@ -139,9 +118,6 @@
 			<td align="right">{$row.casesRate|numberFormat:3:'%'}</td>
 			<td align="right">{$row.populationDeathRate|numberFormat:5:'%'}</td>
 			<td align="right">{$row.activeRate|numberFormat:3:'%'}</td>
-			<td align="right">{$row.vaccinatedRate|numberFormat:3:'%'}</td>
-			<td align="right">{$row.vaccinationLastWeekAverage|numberFormat:0}</td>
-			<td align="right">{$row.vaccinationDaysLeft|numberFormat:0}</td>
 		</tr>
 	{/foreach}
 	</table>
