@@ -15,7 +15,7 @@
 		{else}
 			<a target="legend" href="/corona/legend" title="Explanation of the column titles/metrics" style="color: #f88">Legend</a>
 			{if $by == 'country'}
-				<img src="/images/circles/fade/green.png">
+				<img style="opacity:0.4;" src="/images/circles/green.png">
 			{/if}
 		{/if}
 	</td>
@@ -29,7 +29,7 @@
 				<a href="/?by=cases"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'cases'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td>
@@ -41,7 +41,7 @@
 				<a href="/?by=yesterday"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'yesterday'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td>
@@ -53,7 +53,7 @@
 				<a href="/?by=R"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'R'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td>
@@ -65,7 +65,7 @@
 				<a href="/?by=Rplus"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'Rplus'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td>
@@ -77,7 +77,7 @@
 				<a href="/?by=today"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'today'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td style="background-color: #ddd;" width="20px"> </td>
@@ -90,7 +90,7 @@
 				<a href="/?by=deaths"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'deaths'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td>
@@ -102,7 +102,7 @@
 				<a href="/?by=deathsYesterday"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'deathsYesterday'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td>
@@ -114,7 +114,7 @@
 				<a href="/?by=deathsToday"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'deathsToday'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td style="background-color: #ddd;" width="20px"> </td>
@@ -127,7 +127,7 @@
 				<a href="/?by=recovered"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'recovered'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td>
@@ -139,7 +139,7 @@
 				<a href="/?by=closed"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'closed'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td>
@@ -151,7 +151,7 @@
 				<a href="/?by=active"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'active'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td style="background-color: #ddd;" width="20px"> </td>
@@ -164,7 +164,7 @@
 				<a href="/?by=casesDeathRate"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'casesDeathRate'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td>
@@ -176,7 +176,7 @@
 				<a href="/?by=closedDeathRate"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'closedDeathRate'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td style="background-color: #ddd;" width="20px"> </td>
@@ -189,7 +189,7 @@
 				<a href="/?by=population"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'population'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td>
@@ -201,7 +201,7 @@
 				<a href="/?by=casesRate"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'casesRate'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td>
@@ -213,7 +213,7 @@
 				<a href="/?by=populationDeathRate"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'populationDeathRate'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 	<td>
@@ -225,7 +225,7 @@
 				<a href="/?by=activeRate"><img src="/images/arrowDown.png"></a>
 			{/if}
 		{elseif $by == 'activeRate'}
-			<img src="/images/circles/fade/green.png">
+			<img style="opacity:0.4;" src="/images/circles/green.png">
 		{/if}
 	</td>
 </tr>
