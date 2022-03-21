@@ -4,11 +4,10 @@
 		{assign var=No value=`$key+1`}
 		{if $key == 0}
 			{msuShowTpl file="coronaTitles.tpl" links=true}
-			{msuShowTpl file="coronaTotals.tpl"}
 		{elseif  $key % 10 == 0}
 			{msuShowTpl file="coronaTitles.tpl" links=false}
-			{msuShowTpl file="coronaTotals.tpl"}
 		{/if}
+		{msuShowTpl file="coronaTotals.tpl"}
 		{if $row.country == 'Israel' || $row.country == 'Philippines' || $row.country == $myCountry}
 			<tr style="background-color:#aff;">
 		{else}
