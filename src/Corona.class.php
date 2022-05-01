@@ -3,7 +3,6 @@
 class Corona extends Mcontroller {
 	/*------------------------------------------------------------*/
 	protected $coronaUtils;
-	protected $Mmemcache;
 	/*------------------------------*/
 	private $startTime;
 	private $ttl;
@@ -11,7 +10,6 @@ class Corona extends Mcontroller {
 	public function __construct() {
 		parent::__construct();
 		$this->coronaUtils = new CoronaUtils;
-		$this->Mmemcache = new Mmemcache;
 		$this->ttl = 60;
 	}
 	/*------------------------------------------------------------*/
