@@ -24,7 +24,8 @@ $Mview = new Mview;
 $Mmodel = new Mmodel;
 $Mview->holdOutput();
 /*------------------------------------------------------------*/
-$corona = new Corona($startTime);
+$corona = new Corona;
+$corona->setStartTime($startTime);
 $corona->control();
 $Mview->flushOutput();
 /*------------------------------------------------------------*/
