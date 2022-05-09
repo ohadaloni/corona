@@ -7,15 +7,15 @@ class Corona extends Mcontroller {
 	private $startTime;
 	private $ttl;
 	/*------------------------------------------------------------*/
-	public function __construct() {
+	public function __construct($startTime) {
 		parent::__construct();
+		$this->startTime = $startTime;
 		$this->coronaUtils = new CoronaUtils;
 		$this->ttl = 60;
 	}
 	/*------------------------------------------------------------*/
 	/*------------------------------------------------------------*/
 	protected function before() {
-		$this->startTime = microtime(true);
 		ini_set('max_execution_time', 10);
 		ini_set("memory_limit", "30M");
 
