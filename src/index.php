@@ -5,6 +5,8 @@ require_once(M_DIR."/mfiles.php");
 require_once("coronaFiles.php");
 require_once("Corona.class.php");
 /*------------------------------------------------------------*/
+$startTime = microtime(true);
+/*------------------------------------------------------------*/
 $ua = @$_SERVER['HTTP_USER_AGENT'];
 if (
 	! $ua
@@ -22,7 +24,7 @@ $Mview = new Mview;
 $Mmodel = new Mmodel;
 $Mview->holdOutput();
 /*------------------------------------------------------------*/
-$corona = new Corona;
+$corona = new Corona($startTime);
 $corona->control();
 $Mview->flushOutput();
 /*------------------------------------------------------------*/
