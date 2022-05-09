@@ -3,13 +3,10 @@
 class Corona extends Mcontroller {
 	/*------------------------------------------------------------*/
 	protected $coronaUtils;
-	/*------------------------------*/
-	private $startTime;
 	private $ttl;
 	/*------------------------------------------------------------*/
-	public function __construct($startTime) {
+	public function __construct() {
 		parent::__construct();
-		$this->startTime = $startTime;
 		$this->coronaUtils = new CoronaUtils;
 		$this->ttl = 60;
 	}
@@ -25,7 +22,6 @@ class Corona extends Mcontroller {
 	}
 	/*------------------------------*/
 	protected function after() {
-		$this->Mview->runningTime($this->startTime);
 		$this->Mview->showTpl("footer.tpl");
 		$this->Mview->showTpl("foot.tpl");
 	}
