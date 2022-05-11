@@ -333,7 +333,7 @@ class Corona extends Mcontroller {
 				$metric == 'vaccinatedToday'
 				|| $metric == 'vaccinatedYesterday'
 				|| $metric == 'vaccinationLastWeekAverage'
-				) ?  "vaccinated" :
+				) ? "vaccinated" :
 					 ( stristr($metric, 'deaths') ? 'deaths' : 'cases' );
 			$title = "daily $baseMetric in $country$sinceTitle";
 			$sql = "select date, $baseMetric from covid19 where $conds $orderBy";
@@ -486,16 +486,16 @@ class Corona extends Mcontroller {
 				: 0;
 		$population = $this->population($country);
 		if ( $population ) {
-			$row['population'] = $population ;
+			$row['population'] = $population;
 			$row['casesRate'] = 
-				( $row['cases'] / $population ) * 100 ;
-			$row['EcasesRate'] = $row['casesRate'] * 10 ;
+				( $row['cases'] / $population ) * 100;
+			$row['EcasesRate'] = $row['casesRate'] * 10;
 			$row['activeRate'] = 
-				@$row['active'] ? ( $row['active'] / $population ) * 100 : 0 ;
+				@$row['active'] ? ( $row['active'] / $population ) * 100 : 0;
 			$row['populationDeathRate'] =
-				( $row['deaths'] / $population ) * 100 ;
+				( $row['deaths'] / $population ) * 100;
 			$row['vaccinatedRate'] = 
-				( $row['vaccinated'] / $population ) * 100 / 2 ; // rate shows 1/2, 2 doses per person
+				( $row['vaccinated'] / $population ) * 100 / 2; // rate shows 1/2, 2 doses per person
 			$row['vaccinationLastWeekAverage'] = $this->weekAverage($country, false, 'vaccinated');
 			if ( $row['vaccinationLastWeekAverage'] ) {
 				$left2Vaccinate = $row['population'] * 2 - $row['vaccinated']; // 2 doses per person
@@ -504,7 +504,7 @@ class Corona extends Mcontroller {
 				$row['vaccinationDaysLeft'] = 0;
 			}
 		} else {
-			$row['population'] = 0 ;
+			$row['population'] = 0;
 			$row['populationDeathRate'] = 0;
 			$row['casesRate'] = 0;
 			$row['EcasesRate'] = 0;
@@ -729,8 +729,8 @@ class Corona extends Mcontroller {
 		$monthSeconds = 30 * $daySeconds;
 
 		$sinces = array();
-		for ( $day = $startDate ;
-			strcmp($today, $day) > 0 ;
+		for ( $day = $startDate;
+			strcmp($today, $day) > 0;
 				$day = date("Y-m-01", strtotime($day) + $interval * $monthSeconds + 7 * $daySeconds))
 			$sinces[] = $day;
 		$sinces[] = "allTime";
@@ -770,8 +770,8 @@ class Corona extends Mcontroller {
 		}
 		$startTotal = $this->Mmodel->getInt($startSql, $this->ttl);
 		$endTotal = $this->Mmodel->getInt($endSql, $this->ttl);
-		$total = $endTotal - $startTotal ;
-		$weekAverage = $total / $numDays ;
+		$total = $endTotal - $startTotal;
+		$weekAverage = $total / $numDays;
 		if ( $country == 'Israel' ) {
 			$prData = array(
 				'country' => $country,
@@ -799,7 +799,7 @@ class Corona extends Mcontroller {
 		$thisWeekAverage = $this->weekAverage($country, false, 'cases', $tomorrow);
 		if ( ! $prevWeekAverage )
 			return(null);
-		$Rplus = $thisWeekAverage / $prevWeekAverage ;
+		$Rplus = $thisWeekAverage / $prevWeekAverage;
 		$Rplus = pow($Rplus, 4/7.0);
 		return($Rplus);
 	}
@@ -809,7 +809,7 @@ class Corona extends Mcontroller {
 		$thisWeekAverage = $this->weekAverage($country, false, 'cases', $todayDate);
 		if ( ! $prevWeekAverage )
 			return(null);
-		$R = $thisWeekAverage / $prevWeekAverage ;
+		$R = $thisWeekAverage / $prevWeekAverage;
 		$R = pow($R, 4/7.0);
 		return($R);
 	}
