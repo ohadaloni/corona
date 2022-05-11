@@ -5,7 +5,7 @@
 		{if $key == 0}
 			{msuShowTpl file="coronaTitles.tpl" links=true}
 			{msuShowTpl file="coronaTotals.tpl"}
-		{elseif  $key % 10 == 0}
+		{elseif $key % 10 == 0}
 			{msuShowTpl file="coronaTitles.tpl" links=false}
 			{msuShowTpl file="coronaTotals.tpl"}
 		{/if}
